@@ -1,21 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
-import { hardwareCategories } from "@/lib/hardware";
+import { useEffect, useState } from "react";
 import { ROUTES } from "@/lib/site";
-import { useNavMenu } from "./NavMenus";
+import {
+  NAV_MENUS,
+  NAV_ORDER,
+  useNavMenu,
+  type MenuId,
+} from "./NavMenus";
 
 export function MobileNav() {
   const { sheet, toggleSheet, close } = useNavMenu();
+  const [view, setView] = useState<MenuId | null>(null);
 
   useEffect(() => {
-    if (!sheet) return;
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = previous;
-    };
+    if (!sheet) setView(null);
   }, [sheet]);
 
   return (
@@ -27,72 +27,17 @@ export function MobileNav() {
         onClick={toggleSheet}
         className="inline-flex h-10 w-10 items-center justify-center text-foreground"
       >
-        <HamburgerIcon open={sheet} />
+        <PanelIcon />
       </button>
 
       {sheet ? (
-        <div className="absolute inset-x-0 top-full z-50 max-h-[calc(100svh-3.5rem)] overflow-y-auto border-t border-border bg-background">
-          <nav aria-label="Primary" className="px-4 py-8">
-            <div className="space-y-8">
-              <div>
-                <p className="meta">Software</p>
-                <Link
-                  href={ROUTES.lora}
-                  onClick={close}
-                  className="mt-3 block text-[32px] font-medium tracking-[-0.04em]"
-                >
-                  Lora
-                </Link>
-                <p className="mt-2 max-w-xs text-[15px] leading-relaxed text-muted">
-                  The software platform behind Warix.
-                </p>
-              </div>
-
-              <div>
-                <p className="meta">Hardware</p>
-                <ul className="mt-4 space-y-5">
-                  {hardwareCategories.map((category) => (
-                    <li key={category.slug}>
-                      <Link
-                        href={`/hardware/${category.slug}`}
-                        onClick={close}
-                        className="text-[15px] text-muted"
-                      >
-                        {category.name}
-                      </Link>
-                      {category.products.length ? (
-                        <ul className="mt-2 space-y-1">
-                          {category.products.map((product) => (
-                            <li key={product.slug}>
-                              <Link
-                                href={`/hardware/${category.slug}/${product.slug}`}
-                                onClick={close}
-                                className="text-[26px] font-medium tracking-[-0.035em]"
-                              >
-                                {product.name}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p className="mt-2 text-[14px] text-faint">Forthcoming</p>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <p className="meta">Company</p>
-                <Link
-                  href={ROUTES.company}
-                  onClick={close}
-                  className="mt-3 block text-[26px] font-medium tracking-[-0.035em]"
-                >
-                  About Warix
-                </Link>
-              </div>
-            </div>
+        <div className="fixed inset-x-0 top-14 bottom-0 z-50 overflow-y-auto bg-background">
+          <nav aria-label="Primary" className="page-wrap pb-16 pt-8">
+            {view ? (
+              <MenuPane id={view} onBack={() => setView(null)} onNavigate={close} />
+            ) : (
+              <RootPane onOpen={setView} onNavigate={close} />
+            )}
           </nav>
         </div>
       ) : null}
@@ -100,20 +45,145 @@ export function MobileNav() {
   );
 }
 
-function HamburgerIcon({ open }: { open: boolean }) {
+function RootPane({
+  onOpen,
+  onNavigate,
+}: {
+  onOpen: (id: MenuId) => void;
+  onNavigate: () => void;
+}) {
+  return (
+    <div>
+      <ul className="space-y-1">
+        {NAV_ORDER.map((id) => (
+          <li key={id}>
+            <button
+              type="button"
+              onClick={() => onOpen(id)}
+              className="block w-full py-1 text-left text-[40px] font-medium leading-[1.1] tracking-[-0.045em] text-foreground"
+            >
+              {NAV_MENUS[id].label}
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-8 border-t border-white/15 pt-8">
+        <Link
+          href={ROUTES.loraApp}
+          onClick={onNavigate}
+          className="inline-flex items-center gap-2 py-1 text-[40px] font-medium leading-[1.1] tracking-[-0.045em] text-foreground"
+        >
+          Talk with Lora
+          <ExternalArrow />
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function MenuPane({
+  id,
+  onBack,
+  onNavigate,
+}: {
+  id: MenuId;
+  onBack: () => void;
+  onNavigate: () => void;
+}) {
+  const menu = NAV_MENUS[id];
+
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={onBack}
+        className="mb-10 inline-flex items-center gap-2 text-[15px] text-foreground/55"
+      >
+        <BackArrow />
+        Home
+      </button>
+
+      <p className="mb-4 text-[13px] text-foreground/45">{menu.label}</p>
+
+      <ul className="space-y-1">
+        {menu.primary.map((item) => (
+          <li key={item.label}>
+            <Link
+              href={item.href}
+              onClick={onNavigate}
+              className="block py-1 text-[40px] font-medium leading-[1.1] tracking-[-0.045em] text-foreground"
+            >
+              {item.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+
+      {menu.secondary?.length ? (
+        <div className="mt-12">
+          <p className="mb-4 text-[13px] text-foreground/45">
+            {menu.secondaryTitle}
+          </p>
+          <ul className="space-y-2">
+            {menu.secondary.map((item) => (
+              <li key={item.label}>
+                <Link
+                  href={item.href}
+                  onClick={onNavigate}
+                  className="block py-0.5 text-[15px] text-foreground/70"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function PanelIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+      <rect
+        x="2.75"
+        y="3.25"
+        width="12.5"
+        height="11.5"
+        rx="2.5"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
+      <path d="M7.25 3.25v11.5" stroke="currentColor" strokeWidth="1.4" />
+    </svg>
+  );
+}
+
+function BackArrow() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
       <path
-        d={open ? "M3.5 3.5 12.5 12.5" : "M2.5 5h11"}
+        d="M10.25 3.5 5.75 8l4.5 4.5"
         stroke="currentColor"
         strokeWidth="1.4"
         strokeLinecap="round"
+        strokeLinejoin="round"
       />
+    </svg>
+  );
+}
+
+function ExternalArrow() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
       <path
-        d={open ? "M12.5 3.5 3.5 12.5" : "M2.5 11h11"}
+        d="M5 13 13 5M7.5 5H13v5.5"
         stroke="currentColor"
-        strokeWidth="1.4"
+        strokeWidth="1.5"
         strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

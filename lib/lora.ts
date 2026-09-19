@@ -1,89 +1,3 @@
-export type LoraInterfaceId =
-  | "desktop"
-  | "phone"
-  | "vehicle"
-  | "robot"
-  | "wearable";
-
-export interface LoraInterface {
-  id: LoraInterfaceId;
-  name: string;
-  context: string;
-  surfaces: string[];
-}
-
-export const LORA_INTERFACES: LoraInterface[] = [
-  {
-    id: "desktop",
-    name: "Desktop",
-    context: "Chat, voice, files, connected apps, automations, and device management.",
-    surfaces: [
-      "AI chat",
-      "Voice",
-      "Files",
-      "Connected apps",
-      "Automations",
-      "Device management",
-      "Search",
-      "Controls",
-    ],
-  },
-  {
-    id: "phone",
-    name: "Phone",
-    context: "A lighter surface for the same platform — chat, voice, and quick control.",
-    surfaces: [
-      "Chat",
-      "Voice",
-      "Notifications",
-      "Connected apps",
-      "Quick actions",
-      "Hardware controls",
-      "Status",
-    ],
-  },
-  {
-    id: "vehicle",
-    name: "Vehicle",
-    context: "A dashboard built for motion — navigation, status, voice, and alerts.",
-    surfaces: [
-      "Dashboard",
-      "Navigation",
-      "Vehicle information",
-      "System status",
-      "Voice",
-      "Controls",
-      "Alerts",
-    ],
-  },
-  {
-    id: "robot",
-    name: "Robot",
-    context: "Tasking, cameras, diagnostics, and conversation around a physical machine.",
-    surfaces: [
-      "Robot controls",
-      "Task management",
-      "Status",
-      "Camera feeds",
-      "Automation",
-      "Conversation",
-      "Diagnostics",
-    ],
-  },
-  {
-    id: "wearable",
-    name: "Wearable",
-    context: "A quiet, close-to-the-body interface for context and simple control.",
-    surfaces: [
-      "Contextual information",
-      "Notifications",
-      "Voice",
-      "Device information",
-      "Simple controls",
-    ],
-  },
-];
-
 export const LORA_INTELLIGENCE = [
   {
     title: "AI",
@@ -103,7 +17,7 @@ export const LORA_INTELLIGENCE = [
   },
   {
     title: "Memory",
-    body: "Context persists across interfaces. A phone, a vehicle, and a robot can share the same identity.",
+    body: "Context persists. The same identity can move from a computer to Warix hardware.",
   },
   {
     title: "Connected services",
@@ -118,7 +32,7 @@ export const LORA_CONNECTED = [
   },
   {
     title: "APIs",
-    body: "Services and data can move through Lora without each device inventing its own stack.",
+    body: "Services and data can move through Lora without each surface inventing its own stack.",
   },
   {
     title: "Hardware",
@@ -130,6 +44,6 @@ export const LORA_CONNECTED = [
   },
   {
     title: "User data",
-    body: "Permissions follow the environment. A robot, a phone, and a computer are not the same room.",
+    body: "Permissions follow the environment. A computer and a garment are not the same room.",
   },
 ];

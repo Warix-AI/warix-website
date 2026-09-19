@@ -1,53 +1,60 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { cn } from "@/lib/cn";
+import { PillLink } from "@/components/site/PillLink";
+import { ROUTES } from "@/lib/site";
 import { MobileNav } from "./MobileNav";
 import { NavMenuProvider, NavPanel, NavTriggers, useNavMenu } from "./NavMenus";
 import { Wordmark } from "./Wordmark";
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    function onScroll() {
-      setScrolled(window.scrollY > 8);
-    }
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
     <NavMenuProvider>
-      <HeaderShell scrolled={scrolled} />
+      <HeaderShell />
     </NavMenuProvider>
   );
 }
 
-function HeaderShell({ scrolled }: { scrolled: boolean }) {
-  const { hideSoon, cancelClose } = useNavMenu();
+function HeaderShell() {
+  const { hideSoon, cancelClose, open, close } = useNavMenu();
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-40 bg-background/95 backdrop-blur-[2px]",
-        scrolled && "border-b border-border",
-      )}
-      onMouseLeave={hideSoon}
-      onMouseEnter={cancelClose}
-    >
-      <div className="page-wrap flex h-14 items-center justify-between md:h-16">
-        <Link href="/" className="text-foreground" aria-label="Warix home">
-          <Wordmark className="text-[16px] font-medium tracking-[-0.03em]" />
-        </Link>
-        <div className="hidden flex-1 justify-center md:flex">
-          <NavTriggers />
+    <>
+      {open ? (
+        <button
+          type="button"
+          aria-label="Close menu"
+          className="fixed inset-0 z-40 hidden bg-black/25 backdrop-blur-sm md:block"
+          onClick={close}
+        />
+      ) : null}
+
+      <header
+        className="sticky top-0 z-50 bg-background"
+        onMouseLeave={hideSoon}
+        onMouseEnter={cancelClose}
+      >
+        <div className="page-wrap flex h-14 items-center justify-between md:grid md:h-16 md:grid-cols-[1fr_auto_1fr]">
+          <Link
+            href="/"
+            onClick={close}
+            className="justify-self-start text-foreground"
+            aria-label="Warix home"
+          >
+            <Wordmark />
+          </Link>
+          <NavTriggers className="hidden md:flex" />
+          <div className="flex items-center justify-end gap-3 justify-self-end">
+            <div className="hidden md:block">
+              <PillLink href={ROUTES.loraApp} filled>
+                Explore Lora
+              </PillLink>
+            </div>
+            <MobileNav />
+          </div>
         </div>
-        <MobileNav />
-      </div>
-      <NavPanel />
-    </header>
+        <NavPanel />
+      </header>
+    </>
   );
 }

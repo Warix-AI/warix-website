@@ -8,6 +8,7 @@ export const SITE = {
 export const ROUTES = {
   home: "/",
   lora: "/lora",
+  loraApp: "https://lora.warix.co",
   hardware: "/hardware",
   company: "/company",
   privacy: "/privacy",

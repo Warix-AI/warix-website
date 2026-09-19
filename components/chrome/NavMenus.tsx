@@ -13,7 +13,70 @@ import { cn } from "@/lib/cn";
 import { hardwareCategories } from "@/lib/hardware";
 import { ROUTES } from "@/lib/site";
 
-type MenuId = "software" | "hardware";
+export type MenuId = "software" | "hardware" | "company";
+
+export const NAV_ORDER: MenuId[] = ["software", "hardware", "company"];
+
+export const NAV_LABELS: Record<MenuId, string> = {
+  software: "Software",
+  hardware: "Hardware",
+  company: "Company",
+};
+
+interface MenuLink {
+  label: string;
+  href: string;
+}
+
+export interface NavMenu {
+  id: MenuId;
+  label: string;
+  href: string;
+  primaryTitle: string;
+  primary: MenuLink[];
+  secondaryTitle?: string;
+  secondary?: MenuLink[];
+}
+
+export const NAV_MENUS: Record<MenuId, NavMenu> = {
+  software: {
+    id: "software",
+    label: "Software",
+    href: ROUTES.lora,
+    primaryTitle: "Explore Software",
+    primary: [
+      { label: "Lora", href: ROUTES.lora },
+      { label: "Talk with Lora", href: ROUTES.loraApp },
+    ],
+  },
+  hardware: {
+    id: "hardware",
+    label: "Hardware",
+    href: ROUTES.hardware,
+    primaryTitle: "Explore Hardware",
+    primary: [
+      { label: "Overview", href: ROUTES.hardware },
+      ...hardwareCategories.map((category) => ({
+        label: category.name,
+        href: `/hardware/${category.slug}`,
+      })),
+    ],
+  },
+  company: {
+    id: "company",
+    label: "Company",
+    href: ROUTES.company,
+    primaryTitle: "Explore Company",
+    primary: [{ label: "About Warix", href: ROUTES.company }],
+    secondaryTitle: "Warix",
+    secondary: [
+      { label: "Philosophy", href: `${ROUTES.company}#philosophy` },
+      { label: "Story", href: `${ROUTES.company}#story` },
+      { label: "Team", href: `${ROUTES.company}#team` },
+      { label: "Technology", href: `${ROUTES.company}#technology` },
+    ],
+  },
+};
 
 interface NavMenuContextValue {
   open: MenuId | null;
@@ -67,7 +130,7 @@ export function NavMenuProvider({ children }: { children: ReactNode }) {
 
   function hideSoon() {
     cancelClose();
-    closeTimer.current = window.setTimeout(() => setOpen(null), 120);
+    closeTimer.current = window.setTimeout(() => setOpen(null), 140);
   }
 
   useEffect(() => {
@@ -81,6 +144,26 @@ export function NavMenuProvider({ children }: { children: ReactNode }) {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    function onScroll() {
+      setOpen(null);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [open]);
+
+  useEffect(() => {
+    if (!sheet) {
+      document.body.style.overflow = "";
+      return;
+    }
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [sheet]);
+
   return (
     <NavMenuContext.Provider
       value={{ open, sheet, show, hideSoon, cancelClose, close, toggleSheet }}
@@ -91,41 +174,27 @@ export function NavMenuProvider({ children }: { children: ReactNode }) {
 }
 
 export function NavTriggers({ className }: { className?: string }) {
-  const { open, show, close } = useNavMenu();
+  const { open, show } = useNavMenu();
 
   return (
-    <nav className={cn("flex items-center gap-8", className)} aria-label="Primary">
-      <button
-        type="button"
-        onMouseEnter={() => show("software")}
-        onFocus={() => show("software")}
-        onClick={() => (open === "software" ? close() : show("software"))}
-        className={cn(
-          "text-[15px] tracking-[-0.015em] transition-opacity",
-          open === "software" ? "text-foreground" : "text-foreground/70 hover:text-foreground",
-        )}
-      >
-        Software
-      </button>
-      <button
-        type="button"
-        onMouseEnter={() => show("hardware")}
-        onFocus={() => show("hardware")}
-        onClick={() => (open === "hardware" ? close() : show("hardware"))}
-        className={cn(
-          "text-[15px] tracking-[-0.015em] transition-opacity",
-          open === "hardware" ? "text-foreground" : "text-foreground/70 hover:text-foreground",
-        )}
-      >
-        Hardware
-      </button>
-      <Link
-        href={ROUTES.company}
-        onMouseEnter={close}
-        className="text-[15px] tracking-[-0.015em] text-foreground/70 transition-opacity hover:text-foreground"
-      >
-        Company
-      </Link>
+    <nav className={cn("flex items-center justify-center gap-8", className)} aria-label="Primary">
+      {NAV_ORDER.map((id) => {
+        const menu = NAV_MENUS[id];
+        const active = open === id;
+        return (
+          <Link
+            key={id}
+            href={menu.href}
+            onMouseEnter={() => show(id)}
+            className={cn(
+              "text-[14px] tracking-[-0.01em] transition-colors",
+              active ? "text-foreground" : "text-foreground/55 hover:text-foreground",
+            )}
+          >
+            {menu.label}
+          </Link>
+        );
+      })}
     </nav>
   );
 }
@@ -134,67 +203,53 @@ export function NavPanel() {
   const { open, cancelClose, hideSoon, close } = useNavMenu();
 
   if (!open) return null;
+  const menu = NAV_MENUS[open];
 
   return (
-    <>
-      <div
-        className="absolute inset-x-0 top-full z-50 hidden bg-background md:block"
-        onMouseEnter={cancelClose}
-        onMouseLeave={hideSoon}
-      >
-        <div className="page-wrap pb-12 pt-6">
-          {open === "software" ? (
-            <div className="max-w-md">
-              <Link href={ROUTES.lora} onClick={close} className="group block">
-                <p className="text-[28px] font-medium leading-none tracking-[-0.04em] text-foreground">
-                  Lora
-                </p>
-                <p className="mt-3 text-[16px] leading-relaxed text-muted">
-                  The software platform behind Warix.
-                </p>
-              </Link>
-            </div>
-          ) : (
-            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
-              {hardwareCategories.map((category) => (
-                <div key={category.slug}>
-                  <Link
-                    href={`/hardware/${category.slug}`}
-                    onClick={close}
-                    className="text-[13px] uppercase tracking-[0.04em] text-muted transition-opacity hover:text-foreground"
-                  >
-                    {category.name}
-                  </Link>
-                  {category.products.length ? (
-                    <ul className="mt-3 space-y-1.5">
-                      {category.products.map((product) => (
-                        <li key={product.slug}>
-                          <Link
-                            href={`/hardware/${category.slug}/${product.slug}`}
-                            onClick={close}
-                            className="text-[22px] font-medium tracking-[-0.035em] text-foreground/80 transition-opacity hover:text-foreground"
-                          >
-                            {product.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="mt-3 text-[14px] text-faint">Forthcoming</p>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
+    <div
+      className="absolute inset-x-0 top-full z-50 hidden border-b border-white/10 bg-background md:block"
+      onMouseEnter={cancelClose}
+      onMouseLeave={hideSoon}
+    >
+      <div className="page-wrap flex flex-wrap gap-x-24 gap-y-10 pb-16 pt-8">
+        <div className="min-w-[16rem]">
+          <p className="mb-5 text-[13px] text-foreground/45">{menu.primaryTitle}</p>
+          <ul className="space-y-2">
+            {menu.primary.map((item) => (
+              <li key={item.label}>
+                <Link
+                  href={item.href}
+                  onClick={close}
+                  className="block py-0.5 text-[28px] font-medium leading-tight tracking-[-0.04em] text-foreground transition-opacity hover:opacity-55"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
 
-      <button
-        type="button"
-        aria-label="Close menu"
-        className="fixed inset-x-0 bottom-0 top-14 z-40 hidden bg-foreground/10 md:top-16 md:block"
-        onClick={close}
-      />
-    </>
+        {menu.secondary?.length ? (
+          <div className="min-w-[12rem]">
+            <p className="mb-5 text-[13px] text-foreground/45">
+              {menu.secondaryTitle}
+            </p>
+            <ul className="space-y-2">
+              {menu.secondary.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    onClick={close}
+                    className="block py-0.5 text-[15px] text-foreground/70 transition-colors hover:text-foreground"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+      </div>
+    </div>
   );
 }

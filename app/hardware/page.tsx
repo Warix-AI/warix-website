@@ -6,20 +6,20 @@ import { hardwareCategories } from "@/lib/hardware";
 export const metadata: Metadata = {
   title: "Hardware",
   description:
-    "Warix hardware is an expanding portfolio of physical products — robots, vehicles, jewelry, wearables, and more. Each is powered by Lora.",
+    "Warix hardware is fashion — garments and objects designed as physical products. Each is powered by Lora.",
 };
 
 export default function HardwarePage() {
   return (
     <>
-      <section className="page-wrap pt-16 pb-16 md:pt-24 md:pb-20">
-        <p className="meta">Hardware</p>
-        <h1 className="display mt-5 max-w-4xl text-[44px] md:text-[64px] lg:text-[72px]">
-          Physical products, built by Warix.
+      <section className="page-wrap pt-20 pb-16 md:pt-28 md:pb-20">
+        <p className="text-[14px] text-foreground/45">Hardware</p>
+        <h1 className="display mt-4 text-[56px] md:text-[80px] lg:text-[96px]">
+          Hardware
         </h1>
-        <p className="mt-6 max-w-2xl text-[20px] leading-relaxed text-muted md:text-[22px]">
-          Hardware expands independently. Each product keeps its own name. The
-          software throughout is Lora.
+        <p className="mt-6 max-w-2xl text-[20px] leading-relaxed text-foreground/60 md:text-[22px]">
+          Fashion, built by Warix. Products keep their own names. The software
+          throughout is Lora.
         </p>
       </section>
 

@@ -31,11 +31,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geist.variable} ${geistMono.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+      className={`${geist.variable} ${geistMono.variable} bg-background antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-background font-sans text-foreground antialiased">
+      <body className="flex min-h-dvh flex-col bg-background font-sans text-foreground antialiased">
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="min-w-0 flex-1">{children}</main>
         <Footer />
       </body>
     </html>

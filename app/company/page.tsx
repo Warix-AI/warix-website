@@ -11,14 +11,13 @@ export const metadata: Metadata = {
 export default function CompanyPage() {
   return (
     <>
-      <section className="page-wrap pt-16 pb-20 md:pt-24 md:pb-28">
-        <p className="meta">Company</p>
-        <h1 className="display mt-5 max-w-4xl text-[44px] md:text-[64px] lg:text-[72px]">
-          Warix builds software and hardware.
-        </h1>
-        <p className="mt-6 max-w-2xl text-[20px] leading-relaxed text-muted md:text-[22px]">
-          Two layers. One company. Lora is the software. Hardware is the
-          physical work.
+      <section className="page-wrap pt-20 pb-16 md:pt-28 md:pb-20">
+        <p className="text-[14px] text-foreground/45">Company</p>
+        <h1 className="display mt-4 text-[56px] md:text-[80px] lg:text-[96px]">About</h1>
+        <p className="mt-6 max-w-2xl text-[20px] leading-relaxed text-foreground/60 md:text-[22px]">
+          Warix is a technology company. We design and build software and
+          hardware as one system. Lora is the software. Hardware is the physical
+          work.
         </p>
       </section>
 
@@ -37,28 +36,27 @@ export default function CompanyPage() {
           <div>
             <h2 className="subhead text-[28px] md:text-[32px]">Hardware</h2>
             <p className="mt-4 text-[17px] leading-relaxed text-muted">
-              Robots, vehicles, jewelry, wearables, fashion, and future physical
-              products. Each has its own name. None of them invent a second
-              software brand.
+              Fashion, and the physical products that follow. Each has its own
+              name. None of them invent a second software brand.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="page-wrap section-space border-t border-border">
+      <section id="philosophy" className="page-wrap section-space scroll-mt-20 border-t border-border">
         <p className="meta">Philosophy</p>
         <h2 className="heading mt-5 max-w-3xl text-[36px] md:text-[48px]">
           Build intelligence into the physical world — without fragmenting the
           software.
         </h2>
         <p className="mt-6 max-w-2xl text-[18px] leading-relaxed text-muted">
-          Interfaces should change with context. A motorcycle is not a phone. A
-          robot is not a laptop. The underlying platform should remain
-          connected: identity, memory, services, and control.
+          Interfaces should change with context. A garment is not a computer.
+          The underlying platform should remain connected: identity, memory,
+          services, and control.
         </p>
       </section>
 
-      <section className="page-wrap section-space border-t border-border">
+      <section id="story" className="page-wrap section-space scroll-mt-20 border-t border-border">
         <p className="meta">Story</p>
         <p className="mt-5 max-w-2xl text-[18px] leading-relaxed text-muted md:text-[20px]">
           Warix began as a technology company that refused to split software and
@@ -67,7 +65,7 @@ export default function CompanyPage() {
         </p>
       </section>
 
-      <section className="page-wrap section-space border-t border-border">
+      <section id="team" className="page-wrap section-space scroll-mt-20 border-t border-border">
         <p className="meta">Team</p>
         <p className="mt-5 max-w-2xl text-[18px] leading-relaxed text-muted md:text-[20px]">
           A small company building the software platform and the machines it
@@ -75,7 +73,7 @@ export default function CompanyPage() {
         </p>
       </section>
 
-      <section className="page-wrap section-space border-t border-border">
+      <section id="technology" className="page-wrap section-space scroll-mt-20 border-t border-border">
         <p className="meta">Technology</p>
         <h2 className="heading mt-5 max-w-3xl text-[36px] md:text-[48px]">
           Research and development sit inside the company, not in the navigation.

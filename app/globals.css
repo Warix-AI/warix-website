@@ -1,13 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f4f3ef;
-  --foreground: #111111;
-  --muted: #6a6a66;
-  --faint: #8a8a85;
-  --border: #e2e0d8;
-  --paper: #fafaf7;
-  --ink: #111111;
+  --background: #000000;
+  --foreground: #f4f3ef;
+  --muted: #9a9a96;
+  --faint: #6e6e6a;
+  --border: #222222;
+  --paper: #111111;
+  --ink: #f4f3ef;
+  --page-inline: 16px;
 }
 
 @theme inline {
@@ -23,7 +24,7 @@
 }
 
 html {
-  color-scheme: light;
+  color-scheme: dark;
   scroll-behavior: smooth;
 }
 
@@ -34,7 +35,7 @@ body {
 }
 
 ::selection {
-  background-color: #d9d6cc;
+  background-color: #2a2a28;
   color: var(--foreground);
 }
 
@@ -47,25 +48,36 @@ body {
   width: 100%;
   max-width: 1600px;
   margin-inline: auto;
-  padding-inline: 16px;
+  padding-inline: var(--page-inline);
 }
 
 @media (min-width: 640px) {
-  .page-wrap {
-    padding-inline: 24px;
+  :root {
+    --page-inline: 24px;
   }
 }
 
 @media (min-width: 1024px) {
-  .page-wrap {
-    padding-inline: 40px;
+  :root {
+    --page-inline: 40px;
   }
 }
 
 @media (min-width: 1280px) {
-  .page-wrap {
-    padding-inline: 48px;
+  :root {
+    --page-inline: 48px;
   }
+}
+
+.carousel-rail {
+  padding-inline: max(
+    var(--page-inline),
+    calc((100vw - 1600px) / 2 + var(--page-inline))
+  );
+  scroll-padding-inline: max(
+    var(--page-inline),
+    calc((100vw - 1600px) / 2 + var(--page-inline))
+  );
 }
 
 .section-space {
