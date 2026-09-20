@@ -10,7 +10,7 @@ export function Footer() {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
           <FooterCol title="Software">
             <li>
-              <Link href={ROUTES.lora}>Lora</Link>
+              <Link href={ROUTES.one}>One</Link>
             </li>
             <li>
               <Link href={ROUTES.cander}>Cander</Link>
@@ -45,7 +45,7 @@ export function Footer() {
 
           <FooterCol title="More">
             <li>
-              <Link href={ROUTES.lora}>Software</Link>
+              <Link href={ROUTES.one}>Software</Link>
             </li>
             <li>
               <Link href={ROUTES.hardware}>Hardware</Link>

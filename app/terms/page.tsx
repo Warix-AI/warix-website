@@ -19,7 +19,7 @@ export default function TermsPage() {
           development. Availability is not implied unless stated.
         </p>
         <p>
-          Warix, Lora, and individual hardware product names are used to
+          Warix, One, and individual hardware product names are used to
           describe the company’s software and hardware. Terms for specific
           products will accompany those products.
         </p>

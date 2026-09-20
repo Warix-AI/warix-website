@@ -44,10 +44,10 @@ export const NAV_MENUS: Record<MenuId, NavMenu> = {
   software: {
     id: "software",
     label: "Software",
-    href: ROUTES.lora,
+    href: ROUTES.one,
     primaryTitle: "Explore Software",
     primary: [
-      { label: "Lora", href: ROUTES.lora },
+      { label: "One", href: ROUTES.one },
       { label: "Cander", href: ROUTES.cander },
     ],
   },

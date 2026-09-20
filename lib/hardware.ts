@@ -78,14 +78,14 @@ export const hardwareCategories: HardwareCategory[] = [
     name: "Fashion",
     statement: "Garments and objects still ahead of us.",
     description:
-      "Fashion is the hardware category. Products keep their own names. The software throughout is Lora.",
+      "Fashion is the hardware category. Products keep their own names. The software throughout is One.",
     products: [
       {
         slug: "sunglasses",
         name: "Sunglasses",
         statement: "Intelligent eyewear that sees the world with you.",
         description:
-          "Sunglasses are a Warix hardware product. They keep their own name. The software throughout is Lora.",
+          "Sunglasses are a Warix hardware product. They keep their own name. The software throughout is One.",
         image: "/hardware/sunglasses.png",
         heroImage: "/fashion-featured.jpg",
         heroCover: true,
@@ -100,23 +100,23 @@ export const hardwareCategories: HardwareCategory[] = [
             body: "A physical object first. The software layer does not replace the form.",
           },
           {
-            title: "Lora",
-            body: "Lora is the software throughout. The product does not invent a second brand.",
+            title: "One",
+            body: "One is the software throughout. The product does not invent a second brand.",
           },
         ],
         technology: "A physical product designed as hardware. The implementation can change.",
-        lora: "Lora runs throughout. Sunglasses do not require a second software identity.",
+        lora: "One runs throughout. Sunglasses do not require a second software identity.",
         specs: [
           { label: "Category", value: "Fashion" },
           { label: "Form", value: "Eyewear" },
           { label: "Weight", value: "28 g" },
           { label: "Battery", value: "12 hours" },
-          { label: "Software", value: "Lora" },
+          { label: "Software", value: "One" },
         ],
         stats: [
           { value: "12 hr", label: "Battery" },
           { value: "28 g", label: "Weight" },
-          { value: "Lora", label: "Software" },
+          { value: "One", label: "Software" },
         ],
         highlights: [
           {
@@ -126,7 +126,7 @@ export const hardwareCategories: HardwareCategory[] = [
             cover: true,
           },
           {
-            title: "Lora, on the face.",
+            title: "One, on the face.",
             body: "Answers, presence, and connected apps without a second software brand. Sunglasses stay Sunglasses.",
             image: "/hardware/sunglasses.png",
           },
@@ -168,7 +168,7 @@ export const hardwareCategories: HardwareCategory[] = [
         name: "Puffer",
         statement: "A worn jacket that stays close to you.",
         description:
-          "Puffer is a Warix hardware product. It keeps its own name. The software throughout is Lora.",
+          "Puffer is a Warix hardware product. It keeps its own name. The software throughout is One.",
         image: "/hardware/puffer.png",
         heroImage: "/hardware/puffer.png",
         price: 580,
@@ -182,23 +182,23 @@ export const hardwareCategories: HardwareCategory[] = [
             body: "A physical object first. The software layer does not replace the form.",
           },
           {
-            title: "Lora",
-            body: "Lora is the software throughout. The product does not invent a second brand.",
+            title: "One",
+            body: "One is the software throughout. The product does not invent a second brand.",
           },
         ],
         technology: "A physical product designed as hardware. The implementation can change.",
-        lora: "Lora runs throughout. Puffer does not require a second software identity.",
+        lora: "One runs throughout. Puffer does not require a second software identity.",
         specs: [
           { label: "Category", value: "Fashion" },
           { label: "Form", value: "Jacket" },
           { label: "Fill", value: "Down alternative" },
           { label: "Weather", value: "Wind and rain" },
-          { label: "Software", value: "Lora" },
+          { label: "Software", value: "One" },
         ],
         stats: [
           { value: "All day", label: "Wear" },
           { value: "Weather", label: "Ready" },
-          { value: "Lora", label: "Software" },
+          { value: "One", label: "Software" },
         ],
         highlights: [
           {
@@ -207,8 +207,8 @@ export const hardwareCategories: HardwareCategory[] = [
             image: "/hardware/puffer.png",
           },
           {
-            title: "Lora, throughout.",
-            body: "The software layer stays Lora. Puffer does not invent a second brand to live in the garment.",
+            title: "One, throughout.",
+            body: "The software layer stays One. Puffer does not invent a second brand to live in the garment.",
             image: "/hardware/puffer.png",
           },
         ],
@@ -250,7 +250,7 @@ export const hardwareCategories: HardwareCategory[] = [
         name: "Watch",
         statement: "A timepiece that stays close to you.",
         description:
-          "Watch is a Warix hardware product. It keeps its own name. The software throughout is Lora.",
+          "Watch is a Warix hardware product. It keeps its own name. The software throughout is One.",
         image: "/hardware/watch.png",
         heroImage: "/hardware/watch.png",
         price: 640,
@@ -264,23 +264,23 @@ export const hardwareCategories: HardwareCategory[] = [
             body: "A physical object first. The software layer does not replace the form.",
           },
           {
-            title: "Lora",
-            body: "Lora is the software throughout. The product does not invent a second brand.",
+            title: "One",
+            body: "One is the software throughout. The product does not invent a second brand.",
           },
         ],
         technology: "A physical product designed as hardware. The implementation can change.",
-        lora: "Lora runs throughout. Watch does not require a second software identity.",
+        lora: "One runs throughout. Watch does not require a second software identity.",
         specs: [
           { label: "Category", value: "Fashion" },
           { label: "Form", value: "Watch" },
           { label: "Case", value: "41 mm" },
           { label: "Battery", value: "7 days" },
-          { label: "Software", value: "Lora" },
+          { label: "Software", value: "One" },
         ],
         stats: [
           { value: "7 day", label: "Battery" },
           { value: "41 mm", label: "Case" },
-          { value: "Lora", label: "Software" },
+          { value: "One", label: "Software" },
         ],
         highlights: [
           {
@@ -289,7 +289,7 @@ export const hardwareCategories: HardwareCategory[] = [
             image: "/hardware/watch.png",
           },
           {
-            title: "Lora on the wrist.",
+            title: "One on the wrist.",
             body: "Identity, answers, and connected systems without renaming the product. Watch stays Watch.",
             image: "/hardware/watch.png",
           },

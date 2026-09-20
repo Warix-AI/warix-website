@@ -6,7 +6,7 @@ export function InterfacePreview({ className }: { className?: string }) {
     <Chrome className={cn("min-h-[280px] md:min-h-[360px]", className)}>
       <div className="flex h-full min-h-[inherit]">
         <aside className="hidden w-[28%] border-r border-black/8 p-5 md:block">
-          <LoraMark />
+          <OneMark />
           <ul className="mt-6 space-y-3 text-[13px] text-black/55">
             <li>Chat</li>
             <li>Files</li>
@@ -16,15 +16,15 @@ export function InterfacePreview({ className }: { className?: string }) {
         </aside>
         <div className="flex flex-1 flex-col p-5 md:p-6">
           <div className="md:hidden">
-            <LoraMark />
+            <OneMark />
           </div>
           <div className="mt-auto space-y-4 pt-10">
             <p className="max-w-sm text-[14px] leading-relaxed text-black/70 md:text-[15px]">
-              Lora is the software platform — chat, files, connected apps, and
-              the work around you.
+              One is the software platform — chat, files, connected apps, and the
+              work around you.
             </p>
             <div className="h-10 rounded-[8px] bg-white/70 px-3 text-[13px] leading-10 text-black/35">
-              Message Lora
+              Message One
             </div>
           </div>
         </div>
@@ -52,10 +52,10 @@ function Chrome({
   );
 }
 
-function LoraMark() {
+function OneMark() {
   return (
     <span className="text-[11px] font-medium tracking-[-0.02em] text-black/50">
-      Lora
+      One
     </span>
   );
 }

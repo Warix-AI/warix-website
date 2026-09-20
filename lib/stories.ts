@@ -11,15 +11,15 @@ export interface StoryCard {
 }
 
 export const HERO_PROMPTS = [
-  "What is Lora?",
+  "What is One?",
   "How does Warix hardware work?",
   "Tell me about Fashion",
-  "What can Lora do on its own?",
+  "What can One do on its own?",
   "How do software and hardware stay one system?",
 ];
 
 export const HERO_PILLS = [
-  { label: "Talk with Lora", href: ROUTES.loraApp, compact: true },
+  { label: "Talk with One", href: ROUTES.oneApp, compact: true },
   { label: "Hardware", href: ROUTES.hardware, compact: true },
   { label: "Company", href: ROUTES.company, compact: false },
 ];
@@ -34,8 +34,8 @@ export const FEATURED_PRIMARY: StoryCard = {
 
 export const SECTION_CARDS: StoryCard[] = [
   {
-    href: ROUTES.lora,
-    title: "Lora — the Warix software platform.",
+    href: ROUTES.one,
+    title: "One — the Warix software platform.",
     meta: "Software",
     tone: "paper",
   },
@@ -55,20 +55,20 @@ export const SECTION_CARDS: StoryCard[] = [
 
 export const SOFTWARE_STORIES: StoryCard[] = [
   {
-    href: ROUTES.lora,
-    title: "Lora is the entire software layer.",
+    href: ROUTES.one,
+    title: "One is the entire software layer.",
     meta: "Software",
     tone: "paper",
   },
   {
-    href: ROUTES.lora,
+    href: ROUTES.one,
     title: "Intelligence is part of the platform.",
     meta: "Software",
     tone: "mist",
   },
   {
-    href: ROUTES.lora,
-    title: "Lora does not require Warix hardware.",
+    href: ROUTES.one,
+    title: "One does not require Warix hardware.",
     meta: "Software",
     tone: "grain",
   },
@@ -89,7 +89,7 @@ export const HARDWARE_STORIES: StoryCard[] = [
   },
   {
     href: ROUTES.hardware,
-    title: "The software throughout is Lora.",
+    title: "The software throughout is One.",
     meta: "Hardware",
     tone: "night",
   },

@@ -15,9 +15,9 @@ export function HeroComposer() {
   }, []);
 
   return (
-    <form action={ROUTES.loraApp} method="get" className="mt-7 w-full max-w-[640px]">
+    <form action={ROUTES.oneApp} method="get" className="mt-7 w-full max-w-[640px]">
       <label className="sr-only" htmlFor="lora-composer">
-        Message Lora
+        Message One
       </label>
       <div className="flex min-h-14 items-center rounded-[28px] bg-[#2f2f2f] px-5 py-4 md:min-h-16">
         <input
@@ -30,7 +30,7 @@ export function HeroComposer() {
         />
         <button
           type="submit"
-          aria-label="Send to Lora"
+          aria-label="Send to One"
           className="ml-3 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1a1a1a] text-foreground/80 transition-opacity hover:opacity-80"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>

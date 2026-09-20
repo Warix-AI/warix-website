@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { LOGIN_TARGETS } from "@/lib/software";
+import { ROUTES } from "@/lib/site";
 import { HardwareCards } from "./HardwareCards";
 import { SoftwareCards } from "./SoftwareCards";
 import {
@@ -71,21 +71,14 @@ function RootPane({
       </ul>
 
       <div className="mt-8 border-t border-white/15 pt-8">
-        <p className="mb-4 text-[13px] text-foreground/45">Log in</p>
-        <ul className="space-y-1">
-          {LOGIN_TARGETS.map((target) => (
-            <li key={target.name}>
-              <a
-                href={target.href}
-                onClick={onNavigate}
-                className="inline-flex items-center gap-2 py-1 text-[40px] font-medium leading-[1.1] tracking-[-0.045em] text-foreground"
-              >
-                {target.name}
-                <ExternalArrow />
-              </a>
-            </li>
-          ))}
-        </ul>
+        <a
+          href={ROUTES.oneApp}
+          onClick={onNavigate}
+          className="inline-flex items-center gap-2 py-1 text-[40px] font-medium leading-[1.1] tracking-[-0.045em] text-foreground"
+        >
+          Try One
+          <ExternalArrow />
+        </a>
       </div>
     </div>
   );

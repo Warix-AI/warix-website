@@ -16,7 +16,7 @@ export default function CompanyPage() {
         <h1 className="display mt-4 text-[56px] md:text-[80px] lg:text-[96px]">About</h1>
         <p className="mt-6 max-w-2xl text-[20px] leading-relaxed text-foreground/60 md:text-[22px]">
           Warix is a technology company. We design and build software and
-          hardware as one system. Lora is the software. Hardware is the physical
+          hardware as one system. One is the software. Hardware is the physical
           work.
         </p>
       </section>
@@ -25,9 +25,9 @@ export default function CompanyPage() {
         <p className="meta">What we build</p>
         <div className="mt-10 grid gap-12 md:grid-cols-2">
           <div>
-            <h2 className="subhead text-[28px] md:text-[32px]">Software — Lora</h2>
+            <h2 className="subhead text-[28px] md:text-[32px]">Software — One</h2>
             <p className="mt-4 text-[17px] leading-relaxed text-muted">
-              Lora is the entire software platform: agents, infrastructure,
+              One is the entire software platform: agents, infrastructure,
               APIs, device software, identity, interfaces, and the systems that
               connect them. It can exist on its own, or throughout Warix
               hardware.
@@ -79,13 +79,13 @@ export default function CompanyPage() {
           Research and development sit inside the company, not in the navigation.
         </h2>
         <p className="mt-6 max-w-2xl text-[18px] leading-relaxed text-muted">
-          Lora includes the hidden work: models, orchestration, device software,
+          One includes the hidden work: models, orchestration, device software,
           permissions, and the implementations that change from one machine to
           the next. Hardware development is industrial design, engineering, and
           the long path from prototype to product.
         </p>
         <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3">
-          <TextLink href={ROUTES.lora}>Explore Lora</TextLink>
+          <TextLink href={ROUTES.one}>Explore One</TextLink>
           <TextLink href={ROUTES.hardware}>Explore hardware</TextLink>
         </div>
       </section>

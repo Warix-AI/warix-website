@@ -12,8 +12,8 @@ export interface SoftwareProduct {
 
 export const SOFTWARE_PRODUCTS: SoftwareProduct[] = [
   {
-    name: "Lora",
-    href: ROUTES.lora,
+    name: "One",
+    href: ROUTES.one,
     blurb: "An AI assistant for answers and your apps.",
     tone: "night",
     image: "/lora-wash.png",
@@ -28,8 +28,3 @@ export const SOFTWARE_PRODUCTS: SoftwareProduct[] = [
     onDark: true,
   },
 ];
-
-export const LOGIN_TARGETS = [
-  { name: "Lora", href: ROUTES.loraApp },
-  { name: "Cander", href: ROUTES.canderApp },
-] as const;

@@ -31,7 +31,7 @@ export default function HomePage() {
 
       <StoryCarousel
         heading="Software"
-        action={{ label: "View Lora", href: ROUTES.lora }}
+        action={{ label: "View One", href: ROUTES.one }}
         stories={SOFTWARE_STORIES}
       />
 

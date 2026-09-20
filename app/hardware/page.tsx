@@ -11,7 +11,7 @@ import {
 export const metadata: Metadata = {
   title: "Hardware",
   description:
-    "Warix hardware is fashion — garments and objects designed as physical products. Each is powered by Lora.",
+    "Warix hardware is fashion — garments and objects designed as physical products. Each is powered by One.",
 };
 
 export default function HardwarePage() {
@@ -24,7 +24,7 @@ export default function HardwarePage() {
         </h1>
         <p className="mt-6 max-w-2xl text-[20px] leading-relaxed text-foreground/60 md:text-[22px]">
           Fashion, built by Warix. Products keep their own names. The software
-          throughout is Lora.
+          throughout is One.
         </p>
       </section>
 

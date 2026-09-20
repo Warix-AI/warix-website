@@ -20,7 +20,7 @@ export default function PrivacyPage() {
           and protect the site.
         </p>
         <p>
-          Product-specific privacy terms for Lora or Warix hardware will be
+          Product-specific privacy terms for One or Warix hardware will be
           published with those products.
         </p>
       </div>
