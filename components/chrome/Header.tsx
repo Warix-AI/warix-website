@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { PillLink } from "@/components/site/PillLink";
-import { ROUTES } from "@/lib/site";
+import { LoginMenu } from "./LoginMenu";
 import { MobileNav } from "./MobileNav";
 import { NavMenuProvider, NavPanel, NavTriggers, useNavMenu } from "./NavMenus";
 import { Wordmark } from "./Wordmark";
@@ -45,11 +44,7 @@ function HeaderShell() {
           </Link>
           <NavTriggers className="hidden md:flex" />
           <div className="flex items-center justify-end gap-3 justify-self-end">
-            <div className="hidden md:block">
-              <PillLink href={ROUTES.loraApp} filled>
-                Explore Lora
-              </PillLink>
-            </div>
+            <LoginMenu />
             <MobileNav />
           </div>
         </div>

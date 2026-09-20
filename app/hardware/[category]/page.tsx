@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ProductVisual } from "@/components/hardware/ProductVisual";
+import { ProductPhoto } from "@/components/hardware/ProductPhoto";
+import { PillLink } from "@/components/site/PillLink";
 import { TextLink } from "@/components/ui/TextLink";
-import { getCategory, hardwareCategories } from "@/lib/hardware";
+import {
+  formatUsd,
+  getCategory,
+  hardwareCategories,
+  hardwareDesignHref,
+  hardwareHref,
+} from "@/lib/hardware";
 import { ROUTES } from "@/lib/site";
 
 type Params = { category: string };
@@ -48,49 +55,37 @@ export default async function HardwareCategoryPage({
       </section>
 
       <section className="page-wrap pb-24 md:pb-32">
-        <ProductVisual
-          id={category.slug}
-          label={category.name}
-          className="aspect-[16/8] w-full"
-        />
-
-        {category.products.length ? (
-          <div className="mt-20 space-y-20">
-            {category.products.map((product) => (
-              <article
-                key={product.slug}
-                className="grid items-end gap-8 lg:grid-cols-12"
-              >
-                <ProductVisual
-                  id={product.slug}
-                  label={product.name}
-                  className="aspect-[16/10] lg:col-span-8"
-                />
-                <div className="lg:col-span-4">
-                  <p className="text-[13px] text-faint">
-                    {product.availabilityLabel}
-                  </p>
-                  <h2 className="subhead mt-2 text-[30px] md:text-[36px]">
-                    {product.name}
-                  </h2>
-                  <p className="mt-3 text-[16px] leading-relaxed text-muted md:text-[18px]">
-                    {product.statement}
-                  </p>
-                  <div className="mt-6">
-                    <TextLink href={`/hardware/${category.slug}/${product.slug}`}>
-                      View {product.name}
-                    </TextLink>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        ) : (
-          <p className="mt-16 max-w-md text-[17px] leading-relaxed text-muted">
-            No products in this category yet. Warix will add them here as they
-            are designed.
-          </p>
-        )}
+        <div className="grid gap-10 md:grid-cols-3">
+          {category.products.map((product) => (
+            <article key={product.slug}>
+              <ProductPhoto
+                src={product.image}
+                label={product.name}
+                className="relative aspect-[4/3] rounded-[16px]"
+              />
+              <h2 className="subhead mt-5 text-[28px] md:text-[32px]">
+                {product.name}
+              </h2>
+              <p className="mt-2 text-[16px] text-muted">
+                {formatUsd(product.price)}
+              </p>
+              <p className="mt-2 text-[15px] leading-relaxed text-muted">
+                {product.statement}
+              </p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                <PillLink
+                  href={hardwareDesignHref(category.slug, product.slug)}
+                  filled
+                >
+                  Order Now
+                </PillLink>
+                <PillLink href={hardwareHref(category.slug, product.slug)}>
+                  Learn
+                </PillLink>
+              </div>
+            </article>
+          ))}
+        </div>
 
         <div className="mt-16">
           <TextLink href={ROUTES.hardware}>All hardware</TextLink>

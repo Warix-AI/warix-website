@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { cn } from "@/lib/cn";
 import type { StoryCard as StoryCardData } from "@/lib/stories";
 import { Cover } from "./Cover";
 
@@ -27,7 +29,28 @@ export function StoryCard({
 
   return (
     <Link href={story.href} className="group block">
-      <Cover tone={story.tone} label={story.title} className={mediaClass} />
+      {story.image ? (
+        <div
+          className={cn(
+            "relative overflow-hidden rounded-[16px]",
+            mediaClass,
+          )}
+        >
+          <Image
+            src={story.image}
+            alt=""
+            fill
+            sizes={
+              size === "feature" ? "100vw" : "(min-width: 768px) 50vw, 100vw"
+            }
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            priority={size === "feature"}
+          />
+          <span className="sr-only">{story.title}</span>
+        </div>
+      ) : (
+        <Cover tone={story.tone} label={story.title} className={mediaClass} />
+      )}
       <h3 className={titleClass}>{story.title}</h3>
       <p className="mt-2 text-[13px] text-foreground/45">{story.meta}</p>
     </Link>

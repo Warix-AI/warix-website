@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ROUTES } from "@/lib/site";
+import { LOGIN_TARGETS } from "@/lib/software";
+import { HardwareCards } from "./HardwareCards";
+import { SoftwareCards } from "./SoftwareCards";
 import {
   NAV_MENUS,
   NAV_ORDER,
@@ -25,7 +27,7 @@ export function MobileNav() {
         aria-label={sheet ? "Close menu" : "Open menu"}
         aria-expanded={sheet}
         onClick={toggleSheet}
-        className="inline-flex h-10 w-10 items-center justify-center text-foreground"
+        className="inline-flex h-10 w-10 items-center justify-end text-foreground"
       >
         <PanelIcon />
       </button>
@@ -69,14 +71,21 @@ function RootPane({
       </ul>
 
       <div className="mt-8 border-t border-white/15 pt-8">
-        <Link
-          href={ROUTES.loraApp}
-          onClick={onNavigate}
-          className="inline-flex items-center gap-2 py-1 text-[40px] font-medium leading-[1.1] tracking-[-0.045em] text-foreground"
-        >
-          Talk with Lora
-          <ExternalArrow />
-        </Link>
+        <p className="mb-4 text-[13px] text-foreground/45">Log in</p>
+        <ul className="space-y-1">
+          {LOGIN_TARGETS.map((target) => (
+            <li key={target.name}>
+              <a
+                href={target.href}
+                onClick={onNavigate}
+                className="inline-flex items-center gap-2 py-1 text-[40px] font-medium leading-[1.1] tracking-[-0.045em] text-foreground"
+              >
+                {target.name}
+                <ExternalArrow />
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
@@ -106,19 +115,25 @@ function MenuPane({
 
       <p className="mb-4 text-[13px] text-foreground/45">{menu.label}</p>
 
-      <ul className="space-y-1">
-        {menu.primary.map((item) => (
-          <li key={item.label}>
-            <Link
-              href={item.href}
-              onClick={onNavigate}
-              className="block py-1 text-[40px] font-medium leading-[1.1] tracking-[-0.045em] text-foreground"
-            >
-              {item.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      {menu.id === "software" ? (
+        <SoftwareCards onNavigate={onNavigate} />
+      ) : menu.id === "hardware" ? (
+        <HardwareCards onNavigate={onNavigate} />
+      ) : (
+        <ul className="space-y-1">
+          {menu.primary.map((item) => (
+            <li key={item.label}>
+              <Link
+                href={item.href}
+                onClick={onNavigate}
+                className="block py-1 text-[40px] font-medium leading-[1.1] tracking-[-0.045em] text-foreground"
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
 
       {menu.secondary?.length ? (
         <div className="mt-12">

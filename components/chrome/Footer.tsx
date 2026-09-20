@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { hardwareCategories } from "@/lib/hardware";
+import { HARDWARE_MENU_PRODUCTS } from "@/lib/hardware";
 import { ROUTES } from "@/lib/site";
 
 export function Footer() {
@@ -13,17 +13,14 @@ export function Footer() {
               <Link href={ROUTES.lora}>Lora</Link>
             </li>
             <li>
-              <Link href={ROUTES.loraApp}>Talk with Lora</Link>
+              <Link href={ROUTES.cander}>Cander</Link>
             </li>
           </FooterCol>
 
           <FooterCol title="Hardware">
-            <li>
-              <Link href={ROUTES.hardware}>Overview</Link>
-            </li>
-            {hardwareCategories.map((category) => (
-              <li key={category.slug}>
-                <Link href={`/hardware/${category.slug}`}>{category.name}</Link>
+            {HARDWARE_MENU_PRODUCTS.map((product) => (
+              <li key={product.name}>
+                <Link href={product.href}>{product.name}</Link>
               </li>
             ))}
           </FooterCol>

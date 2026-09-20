@@ -9,8 +9,10 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { HardwareCards } from "@/components/chrome/HardwareCards";
+import { SoftwareCards } from "@/components/chrome/SoftwareCards";
 import { cn } from "@/lib/cn";
-import { hardwareCategories } from "@/lib/hardware";
+import { HARDWARE_MENU_PRODUCTS } from "@/lib/hardware";
 import { ROUTES } from "@/lib/site";
 
 export type MenuId = "software" | "hardware" | "company";
@@ -46,7 +48,7 @@ export const NAV_MENUS: Record<MenuId, NavMenu> = {
     primaryTitle: "Explore Software",
     primary: [
       { label: "Lora", href: ROUTES.lora },
-      { label: "Talk with Lora", href: ROUTES.loraApp },
+      { label: "Cander", href: ROUTES.cander },
     ],
   },
   hardware: {
@@ -54,13 +56,10 @@ export const NAV_MENUS: Record<MenuId, NavMenu> = {
     label: "Hardware",
     href: ROUTES.hardware,
     primaryTitle: "Explore Hardware",
-    primary: [
-      { label: "Overview", href: ROUTES.hardware },
-      ...hardwareCategories.map((category) => ({
-        label: category.name,
-        href: `/hardware/${category.slug}`,
-      })),
-    ],
+    primary: HARDWARE_MENU_PRODUCTS.map((product) => ({
+      label: product.name,
+      href: product.href,
+    })),
   },
   company: {
     id: "company",
@@ -211,36 +210,25 @@ export function NavPanel() {
       onMouseEnter={cancelClose}
       onMouseLeave={hideSoon}
     >
-      <div className="page-wrap flex flex-wrap gap-x-24 gap-y-10 pb-16 pt-8">
-        <div className="min-w-[16rem]">
-          <p className="mb-5 text-[13px] text-foreground/45">{menu.primaryTitle}</p>
-          <ul className="space-y-2">
-            {menu.primary.map((item) => (
-              <li key={item.label}>
-                <Link
-                  href={item.href}
-                  onClick={close}
-                  className="block py-0.5 text-[28px] font-medium leading-tight tracking-[-0.04em] text-foreground transition-opacity hover:opacity-55"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+      {menu.id === "software" ? (
+        <div className="page-wrap py-6">
+          <SoftwareCards onNavigate={close} />
         </div>
-
-        {menu.secondary?.length ? (
-          <div className="min-w-[12rem]">
-            <p className="mb-5 text-[13px] text-foreground/45">
-              {menu.secondaryTitle}
-            </p>
+      ) : menu.id === "hardware" ? (
+        <div className="page-wrap py-6">
+          <HardwareCards onNavigate={close} />
+        </div>
+      ) : (
+        <div className="page-wrap flex flex-wrap gap-x-24 gap-y-10 pb-16 pt-8">
+          <div className="min-w-[16rem]">
+            <p className="mb-5 text-[13px] text-foreground/45">{menu.primaryTitle}</p>
             <ul className="space-y-2">
-              {menu.secondary.map((item) => (
+              {menu.primary.map((item) => (
                 <li key={item.label}>
                   <Link
                     href={item.href}
                     onClick={close}
-                    className="block py-0.5 text-[15px] text-foreground/70 transition-colors hover:text-foreground"
+                    className="block py-0.5 text-[28px] font-medium leading-tight tracking-[-0.04em] text-foreground transition-opacity hover:opacity-55"
                   >
                     {item.label}
                   </Link>
@@ -248,8 +236,29 @@ export function NavPanel() {
               ))}
             </ul>
           </div>
-        ) : null}
-      </div>
+
+          {menu.secondary?.length ? (
+            <div className="min-w-[12rem]">
+              <p className="mb-5 text-[13px] text-foreground/45">
+                {menu.secondaryTitle}
+              </p>
+              <ul className="space-y-2">
+                {menu.secondary.map((item) => (
+                  <li key={item.label}>
+                    <Link
+                      href={item.href}
+                      onClick={close}
+                      className="block py-0.5 text-[15px] text-foreground/70 transition-colors hover:text-foreground"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </div>
+      )}
     </div>
   );
 }

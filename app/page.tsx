@@ -1,5 +1,4 @@
 import { FeaturedPair } from "@/components/site/FeaturedPair";
-import { HeroComposer } from "@/components/site/HeroComposer";
 import { PillLink } from "@/components/site/PillLink";
 import { StartBanner } from "@/components/site/StartBanner";
 import { StoryCarousel } from "@/components/site/StoryCarousel";
@@ -15,19 +14,15 @@ import { ROUTES } from "@/lib/site";
 export default function HomePage() {
   return (
     <>
-      <section className="page-wrap flex min-h-[68svh] flex-col items-center justify-center pb-16 pt-20 text-center md:min-h-[76svh] md:pb-24 md:pt-28">
-        <h1 className="display text-[32px] md:text-[40px] lg:text-[44px]">
-          What can I help with?
+      <section className="page-wrap flex min-h-[58svh] flex-col items-center justify-center pb-16 pt-10 text-center md:min-h-[62svh]">
+        <h1 className="display max-w-4xl text-[42px] md:text-[64px] lg:text-[72px]">
+          We design best-in-class software and hardware.
         </h1>
-        <HeroComposer />
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
           {HERO_PILLS.map((pill) => (
-            <span
-              key={pill.label}
-              className={pill.compact ? undefined : "hidden md:inline-flex"}
-            >
-              <PillLink href={pill.href}>{pill.label}</PillLink>
-            </span>
+            <PillLink key={pill.label} href={pill.href}>
+              {pill.label}
+            </PillLink>
           ))}
         </div>
       </section>

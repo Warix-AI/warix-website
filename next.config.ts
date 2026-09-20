@@ -39,6 +39,16 @@ const nextConfig: NextConfig = {
         destination: "/hardware",
         permanent: true,
       },
+      {
+        source: "/hardware/fashion/ring",
+        destination: "/hardware/fashion/puffer",
+        permanent: true,
+      },
+      {
+        source: "/hardware/fashion/necklace",
+        destination: "/hardware/fashion/watch",
+        permanent: true,
+      },
     ];
   },
 };

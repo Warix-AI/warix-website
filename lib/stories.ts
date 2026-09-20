@@ -7,6 +7,7 @@ export interface StoryCard {
   title: string;
   meta: string;
   tone: CoverTone;
+  image?: string;
 }
 
 export const HERO_PROMPTS = [
@@ -28,6 +29,7 @@ export const FEATURED_PRIMARY: StoryCard = {
   title: "Fashion. Garments and objects still ahead of us.",
   meta: "Hardware",
   tone: "sand",
+  image: "/fashion-featured.jpg",
 };
 
 export const SECTION_CARDS: StoryCard[] = [

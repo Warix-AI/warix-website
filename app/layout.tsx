@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Footer } from "@/components/chrome/Footer";
 import { Header } from "@/components/chrome/Header";
+import { SiteFooter } from "@/components/chrome/SiteFooter";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -37,7 +37,7 @@ export default function RootLayout({
       <body className="flex min-h-dvh flex-col bg-background font-sans text-foreground antialiased">
         <Header />
         <main className="min-w-0 flex-1">{children}</main>
-        <Footer />
+        <SiteFooter />
       </body>
     </html>
   );

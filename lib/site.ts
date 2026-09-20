@@ -9,6 +9,8 @@ export const ROUTES = {
   home: "/",
   lora: "/lora",
   loraApp: "https://lora.warix.co",
+  cander: "/cander",
+  canderApp: "https://cander.warix.co",
   hardware: "/hardware",
   company: "/company",
   privacy: "/privacy",
