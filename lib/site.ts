@@ -8,7 +8,7 @@ export const SITE = {
 export const ROUTES = {
   home: "/",
   one: "/one",
-  oneApp: "https://lora.warix.co",
+  oneApp: "https://one.warix.co",
   cander: "/cander",
   canderApp: "https://cander.warix.co",
   hardware: "/hardware",

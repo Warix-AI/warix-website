@@ -16,12 +16,12 @@ export function HeroComposer() {
 
   return (
     <form action={ROUTES.oneApp} method="get" className="mt-7 w-full max-w-[640px]">
-      <label className="sr-only" htmlFor="lora-composer">
+      <label className="sr-only" htmlFor="one-composer">
         Message One
       </label>
       <div className="flex min-h-14 items-center rounded-[28px] bg-[#2f2f2f] px-5 py-4 md:min-h-16">
         <input
-          id="lora-composer"
+          id="one-composer"
           type="text"
           name="q"
           placeholder={HERO_PROMPTS[promptIndex]}
