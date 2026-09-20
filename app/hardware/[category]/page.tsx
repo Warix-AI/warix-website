@@ -88,7 +88,7 @@ export default async function HardwareCategoryPage({
         </div>
 
         <div className="mt-16">
-          <TextLink href={ROUTES.hardware}>All hardware</TextLink>
+          <TextLink href={ROUTES.products}>All products</TextLink>
         </div>
       </section>
     </>

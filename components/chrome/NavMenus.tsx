@@ -9,21 +9,12 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { HardwareCards } from "@/components/chrome/HardwareCards";
-import { SoftwareCards } from "@/components/chrome/SoftwareCards";
 import { cn } from "@/lib/cn";
-import { HARDWARE_MENU_PRODUCTS } from "@/lib/hardware";
 import { ROUTES } from "@/lib/site";
 
-export type MenuId = "software" | "hardware" | "company";
+export type MenuId = "research" | "products" | "company";
 
-export const NAV_ORDER: MenuId[] = ["software", "hardware", "company"];
-
-export const NAV_LABELS: Record<MenuId, string> = {
-  software: "Software",
-  hardware: "Hardware",
-  company: "Company",
-};
+export const NAV_ORDER: MenuId[] = ["research", "products", "company"];
 
 interface MenuLink {
   label: string;
@@ -41,38 +32,40 @@ export interface NavMenu {
 }
 
 export const NAV_MENUS: Record<MenuId, NavMenu> = {
-  software: {
-    id: "software",
-    label: "Software",
-    href: ROUTES.one,
-    primaryTitle: "Explore Software",
+  research: {
+    id: "research",
+    label: "Research",
+    href: ROUTES.research,
+    primaryTitle: "Research",
     primary: [
-      { label: "One", href: ROUTES.one },
-      { label: "Cander", href: ROUTES.cander },
+      { label: "Overview", href: ROUTES.research },
+      { label: "Agents", href: `${ROUTES.research}#agents` },
+      { label: "Interfaces", href: `${ROUTES.research}#interfaces` },
+      { label: "Connected systems", href: `${ROUTES.research}#connected` },
+      { label: "Applied AI", href: `${ROUTES.research}#applied` },
     ],
   },
-  hardware: {
-    id: "hardware",
-    label: "Hardware",
-    href: ROUTES.hardware,
-    primaryTitle: "Explore Hardware",
-    primary: HARDWARE_MENU_PRODUCTS.map((product) => ({
-      label: product.name,
-      href: product.href,
-    })),
+  products: {
+    id: "products",
+    label: "Products",
+    href: ROUTES.products,
+    primaryTitle: "Products",
+    primary: [
+      { label: "All products", href: ROUTES.products },
+      { label: "One", href: ROUTES.one },
+    ],
   },
   company: {
     id: "company",
     label: "Company",
     href: ROUTES.company,
-    primaryTitle: "Explore Company",
-    primary: [{ label: "About Warix", href: ROUTES.company }],
-    secondaryTitle: "Warix",
-    secondary: [
+    primaryTitle: "Company",
+    primary: [
+      { label: "About Warix", href: ROUTES.company },
       { label: "Philosophy", href: `${ROUTES.company}#philosophy` },
       { label: "Story", href: `${ROUTES.company}#story` },
-      { label: "Team", href: `${ROUTES.company}#team` },
-      { label: "Technology", href: `${ROUTES.company}#technology` },
+      { label: "Careers", href: `${ROUTES.company}#careers` },
+      { label: "Contact", href: `${ROUTES.company}#contact` },
     ],
   },
 };
@@ -176,7 +169,10 @@ export function NavTriggers({ className }: { className?: string }) {
   const { open, show } = useNavMenu();
 
   return (
-    <nav className={cn("flex items-center justify-center gap-8", className)} aria-label="Primary">
+    <nav
+      className={cn("flex items-center justify-center gap-8", className)}
+      aria-label="Primary"
+    >
       {NAV_ORDER.map((id) => {
         const menu = NAV_MENUS[id];
         const active = open === id;
@@ -187,7 +183,9 @@ export function NavTriggers({ className }: { className?: string }) {
             onMouseEnter={() => show(id)}
             className={cn(
               "text-[14px] tracking-[-0.01em] transition-colors",
-              active ? "text-foreground" : "text-foreground/55 hover:text-foreground",
+              active
+                ? "text-foreground"
+                : "text-foreground/55 hover:text-foreground",
             )}
           >
             {menu.label}
@@ -206,59 +204,30 @@ export function NavPanel() {
 
   return (
     <div
-      className="absolute inset-x-0 top-full z-50 hidden border-b border-white/10 bg-background md:block"
+      className="absolute inset-x-0 top-full z-50 hidden border-b border-border bg-background md:block"
       onMouseEnter={cancelClose}
       onMouseLeave={hideSoon}
     >
-      {menu.id === "software" ? (
-        <div className="page-wrap py-6">
-          <SoftwareCards onNavigate={close} />
+      <div className="page-wrap flex flex-wrap gap-x-24 gap-y-10 pb-14 pt-8">
+        <div className="min-w-[16rem]">
+          <p className="mb-5 text-[13px] text-foreground/45">
+            {menu.primaryTitle}
+          </p>
+          <ul className="space-y-2">
+            {menu.primary.map((item) => (
+              <li key={item.label}>
+                <Link
+                  href={item.href}
+                  onClick={close}
+                  className="block py-0.5 text-[28px] font-medium leading-tight tracking-[-0.04em] text-foreground transition-opacity hover:opacity-55"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
-      ) : menu.id === "hardware" ? (
-        <div className="page-wrap py-6">
-          <HardwareCards onNavigate={close} />
-        </div>
-      ) : (
-        <div className="page-wrap flex flex-wrap gap-x-24 gap-y-10 pb-16 pt-8">
-          <div className="min-w-[16rem]">
-            <p className="mb-5 text-[13px] text-foreground/45">{menu.primaryTitle}</p>
-            <ul className="space-y-2">
-              {menu.primary.map((item) => (
-                <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    onClick={close}
-                    className="block py-0.5 text-[28px] font-medium leading-tight tracking-[-0.04em] text-foreground transition-opacity hover:opacity-55"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {menu.secondary?.length ? (
-            <div className="min-w-[12rem]">
-              <p className="mb-5 text-[13px] text-foreground/45">
-                {menu.secondaryTitle}
-              </p>
-              <ul className="space-y-2">
-                {menu.secondary.map((item) => (
-                  <li key={item.label}>
-                    <Link
-                      href={item.href}
-                      onClick={close}
-                      className="block py-0.5 text-[15px] text-foreground/70 transition-colors hover:text-foreground"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-        </div>
-      )}
+      </div>
     </div>
   );
 }

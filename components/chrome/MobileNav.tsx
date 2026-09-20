@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ROUTES } from "@/lib/site";
-import { HardwareCards } from "./HardwareCards";
-import { SoftwareCards } from "./SoftwareCards";
 import {
   NAV_MENUS,
   NAV_ORDER,
@@ -36,7 +34,11 @@ export function MobileNav() {
         <div className="fixed inset-x-0 top-14 bottom-0 z-50 overflow-y-auto bg-background">
           <nav aria-label="Primary" className="page-wrap pb-16 pt-8">
             {view ? (
-              <MenuPane id={view} onBack={() => setView(null)} onNavigate={close} />
+              <MenuPane
+                id={view}
+                onBack={() => setView(null)}
+                onNavigate={close}
+              />
             ) : (
               <RootPane onOpen={setView} onNavigate={close} />
             )}
@@ -70,7 +72,7 @@ function RootPane({
         ))}
       </ul>
 
-      <div className="mt-8 border-t border-white/15 pt-8">
+      <div className="mt-8 border-t border-border pt-8">
         <a
           href={ROUTES.oneApp}
           onClick={onNavigate}
@@ -108,46 +110,19 @@ function MenuPane({
 
       <p className="mb-4 text-[13px] text-foreground/45">{menu.label}</p>
 
-      {menu.id === "software" ? (
-        <SoftwareCards onNavigate={onNavigate} />
-      ) : menu.id === "hardware" ? (
-        <HardwareCards onNavigate={onNavigate} />
-      ) : (
-        <ul className="space-y-1">
-          {menu.primary.map((item) => (
-            <li key={item.label}>
-              <Link
-                href={item.href}
-                onClick={onNavigate}
-                className="block py-1 text-[40px] font-medium leading-[1.1] tracking-[-0.045em] text-foreground"
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {menu.secondary?.length ? (
-        <div className="mt-12">
-          <p className="mb-4 text-[13px] text-foreground/45">
-            {menu.secondaryTitle}
-          </p>
-          <ul className="space-y-2">
-            {menu.secondary.map((item) => (
-              <li key={item.label}>
-                <Link
-                  href={item.href}
-                  onClick={onNavigate}
-                  className="block py-0.5 text-[15px] text-foreground/70"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
+      <ul className="space-y-1">
+        {menu.primary.map((item) => (
+          <li key={item.label}>
+            <Link
+              href={item.href}
+              onClick={onNavigate}
+              className="block py-1 text-[40px] font-medium leading-[1.1] tracking-[-0.045em] text-foreground"
+            >
+              {item.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

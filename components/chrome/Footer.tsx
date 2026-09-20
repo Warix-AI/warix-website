@@ -1,61 +1,40 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { HARDWARE_MENU_PRODUCTS } from "@/lib/hardware";
 import { ROUTES } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10">
+    <footer className="border-t border-border">
       <div className="page-wrap py-16 md:py-20">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
-          <FooterCol title="Software">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          <FooterCol title="Warix">
             <li>
-              <Link href={ROUTES.one}>One</Link>
+              <Link href={ROUTES.research}>Research</Link>
             </li>
             <li>
-              <Link href={ROUTES.cander}>Cander</Link>
-            </li>
-          </FooterCol>
-
-          <FooterCol title="Hardware">
-            {HARDWARE_MENU_PRODUCTS.map((product) => (
-              <li key={product.name}>
-                <Link href={product.href}>{product.name}</Link>
-              </li>
-            ))}
-          </FooterCol>
-
-          <FooterCol title="Company">
-            <li>
-              <Link href={ROUTES.company}>About Warix</Link>
-            </li>
-            <li>
-              <Link href={`${ROUTES.company}#philosophy`}>Philosophy</Link>
-            </li>
-            <li>
-              <Link href={`${ROUTES.company}#story`}>Story</Link>
-            </li>
-            <li>
-              <Link href={`${ROUTES.company}#team`}>Team</Link>
-            </li>
-            <li>
-              <Link href={`${ROUTES.company}#technology`}>Technology</Link>
-            </li>
-          </FooterCol>
-
-          <FooterCol title="More">
-            <li>
-              <Link href={ROUTES.one}>Software</Link>
-            </li>
-            <li>
-              <Link href={ROUTES.hardware}>Hardware</Link>
+              <Link href={ROUTES.products}>Products</Link>
             </li>
             <li>
               <Link href={ROUTES.company}>Company</Link>
             </li>
           </FooterCol>
 
-          <FooterCol title="Terms & Policies">
+          <FooterCol title="Products">
+            <li>
+              <Link href={ROUTES.one}>One</Link>
+            </li>
+          </FooterCol>
+
+          <FooterCol title="Resources">
+            <li>
+              <Link href={ROUTES.news}>News</Link>
+            </li>
+            <li>
+              <Link href={ROUTES.docs}>Documentation</Link>
+            </li>
+          </FooterCol>
+
+          <FooterCol title="Legal">
             <li>
               <Link href={ROUTES.privacy}>Privacy</Link>
             </li>

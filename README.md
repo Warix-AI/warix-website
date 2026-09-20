@@ -2,11 +2,11 @@
 
 Company website for [warix.co](https://warix.co).
 
-Warix builds software and hardware as one system.
+Warix is a technology company that researches and develops AI products and intelligent systems. **One** is the flagship product.
 
-- **Software** — [One](/one), the Warix software platform
-- **Hardware** — Fashion
-- **Company** — Warix
+- **Research** — [/research](/research)
+- **Products** — [/products](/products), including [One](/one)
+- **Company** — [/company](/company)
 
 ```bash
 npm install

@@ -4,52 +4,16 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/lora", destination: "/one", permanent: true },
+      { source: "/cander", destination: "/products", permanent: true },
       { source: "/computer", destination: "/one", permanent: true },
       { source: "/phone", destination: "/one", permanent: true },
       { source: "/tablet", destination: "/one", permanent: true },
       { source: "/server", destination: "/one", permanent: true },
       { source: "/vision", destination: "/one", permanent: true },
-      { source: "/auto", destination: "/hardware", permanent: true },
-      { source: "/home", destination: "/hardware", permanent: true },
-      { source: "/robotics", destination: "/hardware", permanent: true },
-      { source: "/hardware/robots", destination: "/hardware", permanent: true },
-      {
-        source: "/hardware/robots/:path*",
-        destination: "/hardware",
-        permanent: true,
-      },
-      { source: "/hardware/vehicles", destination: "/hardware", permanent: true },
-      {
-        source: "/hardware/vehicles/:path*",
-        destination: "/hardware",
-        permanent: true,
-      },
-      { source: "/hardware/jewelry", destination: "/hardware", permanent: true },
-      {
-        source: "/hardware/jewelry/:path*",
-        destination: "/hardware",
-        permanent: true,
-      },
-      {
-        source: "/hardware/wearables",
-        destination: "/hardware",
-        permanent: true,
-      },
-      {
-        source: "/hardware/wearables/:path*",
-        destination: "/hardware",
-        permanent: true,
-      },
-      {
-        source: "/hardware/fashion/ring",
-        destination: "/hardware/fashion/puffer",
-        permanent: true,
-      },
-      {
-        source: "/hardware/fashion/necklace",
-        destination: "/hardware/fashion/watch",
-        permanent: true,
-      },
+      { source: "/hardware", destination: "/products", permanent: true },
+      { source: "/hardware/:path*", destination: "/products", permanent: true },
+      { source: "/auto", destination: "/products", permanent: true },
+      { source: "/robotics", destination: "/products", permanent: true },
     ];
   },
 };
