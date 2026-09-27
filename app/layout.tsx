@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/chrome/Header";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
+import { AppProviders } from "@/components/providers/AppProviders";
+import { DevStatePanel } from "@/components/dev/DevStatePanel";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -35,9 +37,12 @@ export default function RootLayout({
       className={`${geist.variable} ${geistMono.variable} bg-background antialiased`}
     >
       <body className="flex min-h-dvh flex-col bg-background font-sans text-foreground antialiased">
-        <Header />
-        <main className="min-w-0 flex-1">{children}</main>
-        <SiteFooter />
+        <AppProviders>
+          <Header />
+          <main className="min-w-0 flex-1">{children}</main>
+          <SiteFooter />
+          <DevStatePanel />
+        </AppProviders>
       </body>
     </html>
   );

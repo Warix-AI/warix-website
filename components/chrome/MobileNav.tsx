@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ROUTES } from "@/lib/site";
+import { EXTERNAL } from "@/lib/site";
+import { useAuth } from "@/components/providers/AuthProvider";
 import {
   NAV_MENUS,
   NAV_ORDER,
@@ -19,15 +20,15 @@ export function MobileNav() {
   }, [sheet]);
 
   return (
-    <div className="md:hidden">
+    <div className="relative z-[60] md:hidden">
       <button
         type="button"
         aria-label={sheet ? "Close menu" : "Open menu"}
         aria-expanded={sheet}
         onClick={toggleSheet}
-        className="inline-flex h-10 w-10 items-center justify-end text-foreground"
+        className="relative z-[61] inline-flex h-10 w-10 items-center justify-center rounded-full text-foreground"
       >
-        <PanelIcon />
+        {sheet ? <CloseIcon /> : <MenuIcon />}
       </button>
 
       {sheet ? (
@@ -56,6 +57,8 @@ function RootPane({
   onOpen: (id: MenuId) => void;
   onNavigate: () => void;
 }) {
+  const { signedIn, signOut, user } = useAuth();
+
   return (
     <div>
       <ul className="space-y-1">
@@ -64,7 +67,7 @@ function RootPane({
             <button
               type="button"
               onClick={() => onOpen(id)}
-              className="block w-full py-1 text-left text-[40px] font-medium leading-[1.1] tracking-[-0.045em] text-foreground"
+              className="block w-full py-1 text-left text-[36px] font-medium leading-[1.1] tracking-[-0.045em] text-foreground"
             >
               {NAV_MENUS[id].label}
             </button>
@@ -72,15 +75,52 @@ function RootPane({
         ))}
       </ul>
 
-      <div className="mt-8 border-t border-border pt-8">
+      <div className="mt-10">
         <a
-          href={ROUTES.oneApp}
+          href={EXTERNAL.oneApp}
           onClick={onNavigate}
-          className="inline-flex items-center gap-2 py-1 text-[40px] font-medium leading-[1.1] tracking-[-0.045em] text-foreground"
+          className="inline-flex h-11 items-center rounded-full bg-accent px-6 text-[15px] font-medium text-white"
         >
           Try One
-          <ExternalArrow />
         </a>
+      </div>
+
+      <div className="mt-10 border-t border-border pt-8">
+        <p className="mb-4 text-[13px] text-muted">Log in</p>
+        {signedIn ? (
+          <ul className="space-y-3 text-[18px]">
+            <li className="text-muted">{user?.email}</li>
+            <li>
+              <a href={EXTERNAL.accountHome} onClick={onNavigate}>
+                Account
+              </a>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={() => {
+                  signOut();
+                  onNavigate();
+                }}
+              >
+                Sign Out
+              </button>
+            </li>
+          </ul>
+        ) : (
+          <ul className="space-y-3 text-[18px]">
+            <li>
+              <a href={EXTERNAL.accountHome} onClick={onNavigate}>
+                Warix Account
+              </a>
+            </li>
+            <li>
+              <a href={EXTERNAL.oneApp} onClick={onNavigate}>
+                One
+              </a>
+            </li>
+          </ul>
+        )}
       </div>
     </div>
   );
@@ -102,23 +142,27 @@ function MenuPane({
       <button
         type="button"
         onClick={onBack}
-        className="mb-10 inline-flex items-center gap-2 text-[15px] text-foreground/55"
+        className="mb-10 inline-flex items-center gap-2 text-[15px] text-muted"
       >
-        <BackArrow />
-        Home
+        ← Menu
       </button>
-
-      <p className="mb-4 text-[13px] text-foreground/45">{menu.label}</p>
-
-      <ul className="space-y-1">
-        {menu.primary.map((item) => (
-          <li key={item.label}>
+      <p className="mb-4 text-[13px] text-muted">{menu.label}</p>
+      <ul className="space-y-3">
+        {menu.products.map((product) => (
+          <li key={product.href}>
             <Link
-              href={item.href}
+              href={product.href}
               onClick={onNavigate}
-              className="block py-1 text-[40px] font-medium leading-[1.1] tracking-[-0.045em] text-foreground"
+              className="card block p-5"
             >
-              {item.label}
+              <span className="block text-[28px] font-medium tracking-[-0.04em]">
+                {product.label}
+              </span>
+              {product.meta ? (
+                <span className="mt-1 block text-[14px] text-muted">
+                  {product.meta}
+                </span>
+              ) : null}
             </Link>
           </li>
         ))}
@@ -127,46 +171,27 @@ function MenuPane({
   );
 }
 
-function PanelIcon() {
+function MenuIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
-      <rect
-        x="2.75"
-        y="3.25"
-        width="12.5"
-        height="11.5"
-        rx="2.5"
-        stroke="currentColor"
-        strokeWidth="1.4"
-      />
-      <path d="M7.25 3.25v11.5" stroke="currentColor" strokeWidth="1.4" />
-    </svg>
-  );
-}
-
-function BackArrow() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
       <path
-        d="M10.25 3.5 5.75 8l4.5 4.5"
+        d="M3.5 5.5h13M3.5 10h13M3.5 14.5h13"
         stroke="currentColor"
-        strokeWidth="1.4"
+        strokeWidth="1.6"
         strokeLinecap="round"
-        strokeLinejoin="round"
       />
     </svg>
   );
 }
 
-function ExternalArrow() {
+function CloseIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
       <path
-        d="M5 13 13 5M7.5 5H13v5.5"
+        d="M5 5l10 10M15 5L5 15"
         stroke="currentColor"
-        strokeWidth="1.5"
+        strokeWidth="1.6"
         strokeLinecap="round"
-        strokeLinejoin="round"
       />
     </svg>
   );

@@ -10,65 +10,14 @@ import {
   type ReactNode,
 } from "react";
 import { cn } from "@/lib/cn";
-import { ROUTES } from "@/lib/site";
+import {
+  NAV_MENUS,
+  NAV_ORDER,
+  type MenuId,
+} from "@/lib/nav";
 
-export type MenuId = "research" | "products" | "company";
-
-export const NAV_ORDER: MenuId[] = ["research", "products", "company"];
-
-interface MenuLink {
-  label: string;
-  href: string;
-}
-
-export interface NavMenu {
-  id: MenuId;
-  label: string;
-  href: string;
-  primaryTitle: string;
-  primary: MenuLink[];
-  secondaryTitle?: string;
-  secondary?: MenuLink[];
-}
-
-export const NAV_MENUS: Record<MenuId, NavMenu> = {
-  research: {
-    id: "research",
-    label: "Research",
-    href: ROUTES.research,
-    primaryTitle: "Research",
-    primary: [
-      { label: "Overview", href: ROUTES.research },
-      { label: "Agents", href: `${ROUTES.research}#agents` },
-      { label: "Interfaces", href: `${ROUTES.research}#interfaces` },
-      { label: "Connected systems", href: `${ROUTES.research}#connected` },
-      { label: "Applied AI", href: `${ROUTES.research}#applied` },
-    ],
-  },
-  products: {
-    id: "products",
-    label: "Products",
-    href: ROUTES.products,
-    primaryTitle: "Products",
-    primary: [
-      { label: "All products", href: ROUTES.products },
-      { label: "One", href: ROUTES.one },
-    ],
-  },
-  company: {
-    id: "company",
-    label: "Company",
-    href: ROUTES.company,
-    primaryTitle: "Company",
-    primary: [
-      { label: "About Warix", href: ROUTES.company },
-      { label: "Philosophy", href: `${ROUTES.company}#philosophy` },
-      { label: "Story", href: `${ROUTES.company}#story` },
-      { label: "Careers", href: `${ROUTES.company}#careers` },
-      { label: "Contact", href: `${ROUTES.company}#contact` },
-    ],
-  },
-};
+export type { MenuId, MenuProduct, NavMenu } from "@/lib/nav";
+export { NAV_MENUS, NAV_ORDER };
 
 interface NavMenuContextValue {
   open: MenuId | null;
@@ -84,9 +33,7 @@ const NavMenuContext = createContext<NavMenuContextValue | null>(null);
 
 export function useNavMenu() {
   const value = useContext(NavMenuContext);
-  if (!value) {
-    throw new Error("Nav menu is missing a provider");
-  }
+  if (!value) throw new Error("Nav menu is missing a provider");
   return value;
 }
 
@@ -170,7 +117,7 @@ export function NavTriggers({ className }: { className?: string }) {
 
   return (
     <nav
-      className={cn("flex items-center justify-center gap-8", className)}
+      className={cn("flex items-center justify-center gap-5 lg:gap-7", className)}
       aria-label="Primary"
     >
       {NAV_ORDER.map((id) => {
@@ -182,7 +129,7 @@ export function NavTriggers({ className }: { className?: string }) {
             href={menu.href}
             onMouseEnter={() => show(id)}
             className={cn(
-              "text-[14px] tracking-[-0.01em] transition-colors",
+              "text-[13px] tracking-[-0.01em] transition-colors",
               active
                 ? "text-foreground"
                 : "text-foreground/55 hover:text-foreground",
@@ -201,32 +148,43 @@ export function NavPanel() {
 
   if (!open) return null;
   const menu = NAV_MENUS[open];
+  const count = menu.products.length;
 
   return (
     <div
-      className="absolute inset-x-0 top-full z-50 hidden border-b border-border bg-background md:block"
+      className="absolute inset-x-0 top-full z-50 hidden border-b border-border/70 bg-background/95 backdrop-blur-xl md:block"
       onMouseEnter={cancelClose}
       onMouseLeave={hideSoon}
     >
-      <div className="page-wrap flex flex-wrap gap-x-24 gap-y-10 pb-14 pt-8">
-        <div className="min-w-[16rem]">
-          <p className="mb-5 text-[13px] text-foreground/45">
-            {menu.primaryTitle}
-          </p>
-          <ul className="space-y-2">
-            {menu.primary.map((item) => (
-              <li key={item.label}>
-                <Link
-                  href={item.href}
-                  onClick={close}
-                  className="block py-0.5 text-[28px] font-medium leading-tight tracking-[-0.04em] text-foreground transition-opacity hover:opacity-55"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div className="page-wrap px-[30px] py-[30px]">
+        <ul
+          className={cn(
+            "grid h-[240px] gap-3",
+            count <= 1 ? "grid-cols-1" : count === 2 ? "grid-cols-2" : "grid-cols-3",
+          )}
+        >
+          {menu.products.map((product) => (
+            <li key={product.href}>
+              <Link
+                href={product.href}
+                onClick={close}
+                className="card group relative flex h-full flex-col justify-end overflow-hidden bg-card p-6 transition-opacity hover:opacity-90"
+              >
+                <span className="absolute inset-0 bg-gradient-to-t from-black/[0.04] to-transparent" />
+                <span className="relative">
+                  <span className="block text-[28px] font-medium tracking-[-0.04em]">
+                    {product.label}
+                  </span>
+                  {product.meta ? (
+                    <span className="mt-1 block text-[13px] text-muted">
+                      {product.meta}
+                    </span>
+                  ) : null}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

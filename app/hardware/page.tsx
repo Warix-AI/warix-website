@@ -1,79 +1,66 @@
 import type { Metadata } from "next";
-import { ProductPhoto } from "@/components/hardware/ProductPhoto";
-import { PillLink } from "@/components/site/PillLink";
-import {
-  formatUsd,
-  hardwareCategories,
-  hardwareDesignHref,
-  hardwareHref,
-} from "@/lib/hardware";
+import Image from "next/image";
+import { ButtonLink } from "@/components/ui/ButtonLink";
+import { HARDWARE_PRODUCTS, formatUsd } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "Hardware",
-  description:
-    "Warix hardware is fashion — garments and objects designed as physical products. Each is powered by One.",
+  description: "Hardware products by Warix — H1, H2, and future H-series products.",
 };
 
-export default function HardwarePage() {
+export default function HardwareFamilyPage() {
   return (
     <>
-      <section className="page-wrap pt-20 pb-16 md:pt-28 md:pb-20">
+      <section className="page-wrap pt-20 pb-12 md:pt-28 md:pb-16">
         <p className="text-[14px] text-foreground/45">Hardware</p>
-        <h1 className="display mt-4 text-[56px] md:text-[80px] lg:text-[96px]">
-          Hardware
+        <h1 className="display mt-4 text-[48px] md:text-[72px]">
+          Hardware by Warix
         </h1>
-        <p className="mt-6 max-w-2xl text-[20px] leading-relaxed text-foreground/60 md:text-[22px]">
-          Fashion, built by Warix. Products keep their own names. The software
-          throughout is One.
+        <p className="mt-6 max-w-2xl text-[18px] leading-relaxed text-muted">
+          Discover and buy Warix hardware on warix.co. Orders attach to your
+          Warix Account. Device management lives at account.warix.co.
         </p>
       </section>
 
-      {hardwareCategories.map((category) => (
-        <section
-          key={category.slug}
-          className="page-wrap section-space border-t border-border"
-        >
-          <p className="meta">{category.name}</p>
-          <h2 className="heading mt-4 max-w-3xl text-[36px] md:text-[48px]">
-            {category.statement}
-          </h2>
-          <p className="mt-5 max-w-md text-[17px] leading-relaxed text-muted">
-            {category.description}
-          </p>
-
-          <div className="mt-16 grid gap-10 md:grid-cols-3">
-            {category.products.map((product) => (
-              <article key={product.slug}>
-                <ProductPhoto
+      <section className="page-wrap pb-24 md:pb-32">
+        <div className="grid gap-12 md:grid-cols-2">
+          {HARDWARE_PRODUCTS.map((product) => (
+            <article key={product.slug}>
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[4px] border border-border bg-paper">
+                <Image
                   src={product.image}
-                  label={product.name}
-                  className="relative aspect-[4/3] rounded-[16px]"
+                  alt=""
+                  fill
+                  className="object-contain p-12"
+                  sizes="(min-width: 768px) 40vw, 100vw"
                 />
-                <h3 className="subhead mt-5 text-[28px] md:text-[32px]">
-                  {product.name}
-                </h3>
-                <p className="mt-2 text-[16px] text-muted">
-                  {formatUsd(product.price)}
-                </p>
-                <p className="mt-2 text-[15px] leading-relaxed text-muted">
-                  {product.statement}
-                </p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  <PillLink
-                    href={hardwareDesignHref(category.slug, product.slug)}
-                    filled
-                  >
-                    Order Now
-                  </PillLink>
-                  <PillLink href={hardwareHref(category.slug, product.slug)}>
-                    Learn
-                  </PillLink>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-      ))}
+              </div>
+              <p className="mt-6 text-[13px] text-foreground/45">{product.series}</p>
+              <h2 className="subhead mt-1 text-[32px] md:text-[40px]">
+                {product.name}
+              </h2>
+              <p className="mt-3 text-[16px] text-muted">{product.blurb}</p>
+              <p className="mt-3 text-[16px]">
+                {product.availability === "available"
+                  ? `From ${formatUsd(product.price)}`
+                  : "Currently unavailable"}
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <ButtonLink href={product.href}>Learn more</ButtonLink>
+                {product.availability === "available" ? (
+                  <ButtonLink href={product.configureHref} filled>
+                    Buy
+                  </ButtonLink>
+                ) : (
+                  <span className="inline-flex h-10 items-center text-[14px] text-foreground/40">
+                    Notify me later
+                  </span>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
     </>
   );
 }

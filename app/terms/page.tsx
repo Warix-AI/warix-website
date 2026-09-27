@@ -6,24 +6,26 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <section className="page-wrap py-20 md:py-28">
-      <p className="meta">Legal</p>
-      <h1 className="display mt-5 text-[44px] md:text-[56px]">Terms</h1>
-      <div className="mt-10 max-w-2xl space-y-6 text-[17px] leading-relaxed text-muted">
-        <p>
-          The content on warix.co is provided by Warix for information. It is
-          not an offer to sell hardware or software through this site.
-        </p>
-        <p>
-          Names, product descriptions, and images may describe work in
-          development. Availability is not implied unless stated.
-        </p>
-        <p>
-          Warix, One, and individual hardware product names are used to
-          describe the company’s software and hardware. Terms for specific
-          products will accompany those products.
-        </p>
+    <>
+      <section className="page-wrap page-hero">
+        <p className="meta">Legal</p>
+        <h1 className="display mt-3 text-[42px] md:text-[56px]">Terms</h1>
+      </section>
+      <div className="page-wrap page-stack">
+        <div className="card card-pad max-w-3xl space-y-4 text-[16px] leading-relaxed text-muted">
+          <p>
+            Content on warix.co is provided for information. It is not an offer
+            to sell software through this site.
+          </p>
+          <p>
+            Names and descriptions may refer to work in development.
+            Availability is not implied unless stated.
+          </p>
+          <p>
+            Product-specific terms for One will accompany that product.
+          </p>
+        </div>
       </div>
-    </section>
+    </>
   );
 }

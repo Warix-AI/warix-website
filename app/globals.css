@@ -1,14 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #000000;
-  --foreground: #f4f3ef;
-  --muted: #9a9a96;
-  --faint: #6e6e6a;
-  --border: #222222;
-  --paper: #111111;
-  --ink: #f4f3ef;
+  --background: #f2f2f7;
+  --foreground: #111111;
+  --muted: #6b6b70;
+  --faint: #8e8e93;
+  --border: #e5e5ea;
+  --paper: #ffffff;
+  --ink: #111111;
+  --accent: #007aff;
+  --accent-hover: #0066d6;
+  --card: #ffffff;
+  --row-hover: #f2f2f7;
   --page-inline: 16px;
+  --radius-card: 20px;
 }
 
 @theme inline {
@@ -19,12 +24,15 @@
   --color-border: var(--border);
   --color-paper: var(--paper);
   --color-ink: var(--ink);
+  --color-accent: var(--accent);
+  --color-card: var(--card);
+  --color-row-hover: var(--row-hover);
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
   scroll-behavior: smooth;
 }
 
@@ -35,13 +43,13 @@ body {
 }
 
 ::selection {
-  background-color: #2a2a28;
+  background-color: color-mix(in srgb, var(--accent) 18%, white);
   color: var(--foreground);
 }
 
 :focus-visible {
-  outline: 1px solid var(--foreground);
-  outline-offset: 3px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .page-wrap {
@@ -69,30 +77,39 @@ body {
   }
 }
 
-.carousel-rail {
-  padding-inline: max(
-    var(--page-inline),
-    calc((100vw - 1600px) / 2 + var(--page-inline))
-  );
-  scroll-padding-inline: max(
-    var(--page-inline),
-    calc((100vw - 1600px) / 2 + var(--page-inline))
-  );
-}
-
 .section-space {
-  padding-block: 96px;
+  padding-block: 48px;
 }
 
 @media (min-width: 768px) {
   .section-space {
-    padding-block: 128px;
+    padding-block: 64px;
   }
 }
 
-@media (min-width: 1024px) {
-  .section-space {
-    padding-block: 160px;
+.page-hero {
+  padding-top: 64px;
+  padding-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+  .page-hero {
+    padding-top: 88px;
+    padding-bottom: 48px;
+  }
+}
+
+.page-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 80px;
+}
+
+@media (min-width: 768px) {
+  .page-stack {
+    gap: 20px;
+    padding-bottom: 96px;
   }
 }
 
@@ -120,6 +137,22 @@ body {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--muted);
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius-card);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
+}
+
+.card-pad {
+  padding: 28px;
+}
+
+@media (min-width: 768px) {
+  .card-pad {
+    padding: 36px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

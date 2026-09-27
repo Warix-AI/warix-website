@@ -1,40 +1,49 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ROUTES } from "@/lib/site";
+import { EXTERNAL, ROUTES } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border">
-      <div className="page-wrap py-16 md:py-20">
+    <footer className="page-wrap pb-16 pt-8">
+      <div className="card card-pad">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          <FooterCol title="Warix">
+          <FooterCol title="Software">
+            <li>
+              <Link href={ROUTES.softwareOne}>One</Link>
+            </li>
+          </FooterCol>
+
+          <FooterCol title="Account">
+            <li>
+              <a href={EXTERNAL.accountHome}>Warix Account</a>
+            </li>
+            <li>
+              <a href={EXTERNAL.oneApp}>One</a>
+            </li>
+          </FooterCol>
+
+          <FooterCol title="Support">
+            <li>
+              <Link href={`${ROUTES.support}#software`}>Software Support</Link>
+            </li>
+            <li>
+              <Link href={`${ROUTES.support}#account`}>Account Support</Link>
+            </li>
+          </FooterCol>
+
+          <FooterCol title="Company">
+            <li>
+              <Link href={ROUTES.company}>About</Link>
+            </li>
             <li>
               <Link href={ROUTES.research}>Research</Link>
             </li>
             <li>
-              <Link href={ROUTES.products}>Products</Link>
+              <Link href={ROUTES.companyNews}>News</Link>
             </li>
             <li>
-              <Link href={ROUTES.company}>Company</Link>
+              <Link href={ROUTES.companyCareers}>Careers</Link>
             </li>
-          </FooterCol>
-
-          <FooterCol title="Products">
-            <li>
-              <Link href={ROUTES.one}>One</Link>
-            </li>
-          </FooterCol>
-
-          <FooterCol title="Resources">
-            <li>
-              <Link href={ROUTES.news}>News</Link>
-            </li>
-            <li>
-              <Link href={ROUTES.docs}>Documentation</Link>
-            </li>
-          </FooterCol>
-
-          <FooterCol title="Legal">
             <li>
               <Link href={ROUTES.privacy}>Privacy</Link>
             </li>
@@ -44,7 +53,7 @@ export function Footer() {
           </FooterCol>
         </div>
 
-        <p className="mt-16 text-[13px] text-foreground/35">
+        <p className="mt-12 text-[13px] text-muted">
           © {new Date().getFullYear()} Warix
         </p>
       </div>
@@ -61,7 +70,7 @@ function FooterCol({
 }) {
   return (
     <div>
-      <p className="text-[13px] text-foreground/45">{title}</p>
+      <p className="text-[13px] text-muted">{title}</p>
       <ul className="mt-4 space-y-2 text-[14px] text-foreground/70 [&_a]:transition-opacity hover:[&_a]:opacity-70">
         {children}
       </ul>

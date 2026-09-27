@@ -1,5 +1,7 @@
 import { ROUTES } from "./site";
 
+// Legacy content helpers — prefer lib/catalog.ts for product IA.
+
 export interface ResearchArea {
   title: string;
   body: string;
@@ -84,7 +86,7 @@ export const UPDATES: UpdateItem[] = [
     date: "2026",
     category: "Research",
     title: "Areas of work across agents, interfaces, and applied AI",
-    href: ROUTES.research,
+    href: ROUTES.companyResearch,
   },
 ];
 

@@ -1,8 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
-import { Cover } from "@/components/site/Cover";
+import { SOFTWARE_PRODUCTS } from "@/lib/catalog";
 import { cn } from "@/lib/cn";
-import { SOFTWARE_PRODUCTS, type SoftwareProduct } from "@/lib/software";
 
 export function SoftwareCards({
   onNavigate,
@@ -12,69 +10,21 @@ export function SoftwareCards({
   className?: string;
 }) {
   return (
-    <div
-      className={cn(
-        "grid grid-cols-1 gap-3 md:h-[210px] md:grid-cols-2 md:gap-4",
-        className,
-      )}
-    >
+    <div className={cn("grid grid-cols-1 gap-3 md:grid-cols-2", className)}>
       {SOFTWARE_PRODUCTS.map((product) => (
-        <SoftwareProductCard
-          key={product.name}
-          product={product}
-          onNavigate={onNavigate}
-        />
+        <Link
+          key={product.slug}
+          href={product.href}
+          onClick={onNavigate}
+          className="rounded-[8px] border border-border p-5 transition-colors hover:bg-paper"
+        >
+          <p className="text-[12px] text-foreground/45">{product.series}</p>
+          <p className="mt-1 text-[22px] font-medium tracking-[-0.03em]">
+            {product.name}
+          </p>
+          <p className="mt-2 text-[13px] text-muted">{product.blurb}</p>
+        </Link>
       ))}
     </div>
-  );
-}
-
-function SoftwareProductCard({
-  product,
-  onNavigate,
-}: {
-  product: SoftwareProduct;
-  onNavigate?: () => void;
-}) {
-  return (
-    <Link
-      href={product.href}
-      onClick={onNavigate}
-      className="relative block h-[140px] overflow-hidden rounded-[16px] md:h-full"
-    >
-      {product.image ? (
-        <Image
-          src={product.image}
-          alt=""
-          fill
-          sizes="(min-width: 768px) 50vw, 100vw"
-          className="object-cover"
-        />
-      ) : (
-        <Cover
-          tone={product.tone}
-          label=""
-          className="absolute inset-0 h-full rounded-[16px]"
-        />
-      )}
-      <div
-        className={cn(
-          "absolute inset-x-0 bottom-0 px-4 pb-4 pt-10",
-          product.onDark
-            ? "bg-gradient-to-t from-black/55 to-transparent text-white"
-            : "text-black",
-        )}
-      >
-        <p className="text-[20px] font-medium tracking-[-0.03em]">{product.name}</p>
-        <p
-          className={cn(
-            "mt-1 max-w-[28rem] text-[13px] leading-snug",
-            product.onDark ? "text-white/80" : "text-black/60",
-          )}
-        >
-          {product.blurb}
-        </p>
-      </div>
-    </Link>
   );
 }

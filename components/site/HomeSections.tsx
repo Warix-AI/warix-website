@@ -107,7 +107,7 @@ export function ProductsSection({
           <p className="meta">Products</p>
           <h2 className="heading mt-5 text-[36px] md:text-[48px]">Products</h2>
         </div>
-        <TextLink href={ROUTES.products}>View all</TextLink>
+        <TextLink href={ROUTES.software}>View all</TextLink>
       </div>
 
       <div className="mt-14 space-y-16">

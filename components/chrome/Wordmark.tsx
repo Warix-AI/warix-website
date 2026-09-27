@@ -6,10 +6,10 @@ export function Wordmark({ className }: { className?: string }) {
     <Image
       src="/warix-wordmark.png"
       alt="Warix"
-      width={448}
-      height={129}
+      width={64}
+      height={20}
       priority
-      className={cn("h-[15px] w-auto", className)}
+      className={cn("h-[12px] w-auto md:h-[13px]", className)}
     />
   );
 }

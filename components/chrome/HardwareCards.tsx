@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { HARDWARE_PRODUCTS, formatUsd } from "@/lib/catalog";
 import { cn } from "@/lib/cn";
-import { HARDWARE_MENU_PRODUCTS } from "@/lib/hardware";
 
 export function HardwareCards({
   onNavigate,
@@ -11,40 +11,32 @@ export function HardwareCards({
   className?: string;
 }) {
   return (
-    <div
-      className={cn(
-        "grid grid-cols-1 gap-3 md:h-[210px] md:grid-cols-3 md:gap-4",
-        className,
-      )}
-    >
-      {HARDWARE_MENU_PRODUCTS.map((product) => (
+    <div className={cn("grid grid-cols-1 gap-3 md:grid-cols-2", className)}>
+      {HARDWARE_PRODUCTS.map((product) => (
         <Link
-          key={product.name}
+          key={product.slug}
           href={product.href}
           onClick={onNavigate}
-          className="relative block h-[200px] overflow-hidden rounded-[16px] bg-white md:h-full"
+          className="rounded-[8px] border border-border p-4 transition-colors hover:bg-paper"
         >
-          <div className="absolute inset-0 bottom-10">
+          <div className="relative mb-3 aspect-[16/10] overflow-hidden rounded-[4px] bg-paper">
             <Image
               src={product.image}
               alt=""
               fill
-              sizes="(min-width: 768px) 33vw, 100vw"
-              className={cn(
-                "object-contain",
-                product.name === "Sunglasses"
-                  ? "scale-[1.45]"
-                  : product.name === "Puffer"
-                    ? "scale-[1.12]"
-                    : "scale-[1.32]",
-              )}
+              className="object-contain p-4"
+              sizes="300px"
             />
           </div>
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-white via-white/90 to-transparent px-4 pb-4 pt-8 text-black">
-            <p className="text-[20px] font-medium tracking-[-0.03em]">
-              {product.name}
-            </p>
-          </div>
+          <p className="text-[12px] text-foreground/45">{product.series}</p>
+          <p className="mt-1 text-[20px] font-medium tracking-[-0.03em]">
+            {product.name}
+          </p>
+          <p className="mt-1 text-[13px] text-muted">
+            {product.availability === "available"
+              ? `From ${formatUsd(product.price)}`
+              : "Coming soon"}
+          </p>
         </Link>
       ))}
     </div>
