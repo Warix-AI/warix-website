@@ -4,12 +4,12 @@ import { cn } from "@/lib/cn";
 export function Wordmark({ className }: { className?: string }) {
   return (
     <Image
-      src="/warix-wordmark.png"
+      src="/warix-icon.png"
       alt="Warix"
-      width={64}
-      height={20}
+      width={28}
+      height={28}
       priority
-      className={cn("h-[12px] w-auto md:h-[13px]", className)}
+      className={cn("h-7 w-7 md:h-8 md:w-8", className)}
     />
   );
 }
